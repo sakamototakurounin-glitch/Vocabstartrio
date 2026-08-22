@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-<meta name="theme-color" content="#111827" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#111827">
 <title>Vocabstar Trio</title>
 <style>
 :root{
@@ -16,22 +16,24 @@ html,body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-syst
 body{min-height:100vh}button,input,select,textarea{font:inherit}button{cursor:pointer}
 .app{max-width:1120px;margin:auto;padding:18px 16px 90px}
 .topbar{display:flex;gap:12px;align-items:center;justify-content:space-between;margin-bottom:18px}.brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:22px}.logo{width:38px;height:38px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(135deg,#5b5cf0,#8c66ff);color:#fff;box-shadow:0 8px 18px rgba(91,92,240,.25)}.top-actions{display:flex;gap:8px;flex-wrap:wrap}
-.btn{border:1px solid var(--line);background:#fff;color:var(--ink);padding:10px 14px;border-radius:12px;font-weight:700;transition:.15s;box-shadow:0 2px 8px rgba(20,25,40,.03)}.btn:hover{transform:translateY(-1px);border-color:#ccd0dc}.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}.btn.primary:hover{background:var(--accent2)}.btn.danger{color:var(--danger);border-color:#f0caca}.btn.danger.solid{background:var(--danger);border-color:var(--danger);color:#fff}.btn.small{padding:7px 10px;border-radius:10px;font-size:13px}
+.btn{border:1px solid var(--line);background:#fff;color:var(--ink);padding:10px 14px;border-radius:12px;font-weight:700;transition:.15s;box-shadow:0 2px 8px rgba(20,25,40,.03)}.btn:hover{transform:translateY(-1px);border-color:#ccd0dc}.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}.btn.primary:hover{background:var(--accent2)}.btn.danger{color:var(--danger);border-color:#f0caca}.btn.danger.solid{background:var(--danger);border-color:var(--danger);color:#fff}.btn.small{padding:7px 10px;border-radius:10px;font-size:13px}.btn.ghost{background:#fafbff}
 .hero{background:linear-gradient(135deg,#151c2c,#232b41);color:white;border-radius:24px;padding:24px;box-shadow:var(--shadow);margin-bottom:16px;position:relative;overflow:hidden}.hero:after{content:"";position:absolute;width:220px;height:220px;border-radius:50%;right:-70px;top:-85px;background:rgba(124,125,255,.22)}.hero h1{font-size:clamp(25px,5vw,40px);margin:0 0 7px;position:relative;z-index:1}.hero p{margin:0;color:#cfd5e3;position:relative;z-index:1;line-height:1.6}
 .tabs{display:flex;gap:8px;margin:16px 0;overflow:auto;padding-bottom:2px}.tab{white-space:nowrap;background:#fff;border:1px solid var(--line);padding:10px 15px;border-radius:999px;font-weight:800;color:var(--muted)}.tab.active{background:var(--ink);color:white;border-color:var(--ink)}
 .panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:18px;margin-bottom:16px}.panel h2{margin:0 0 14px;font-size:18px}.sub{color:var(--muted);font-size:13px;line-height:1.6}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.grid.two{grid-template-columns:repeat(2,1fr)}.field label{display:block;font-size:12px;font-weight:800;color:var(--muted);margin:0 0 6px}.field input,.field select,.field textarea{width:100%;border:1px solid var(--line);background:#fff;border-radius:12px;padding:11px 12px;outline:none}.field textarea{min-height:110px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus{border-color:#aaaef9;box-shadow:0 0 0 3px rgba(91,92,240,.10)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.grid.two{grid-template-columns:repeat(2,1fr)}.field label{display:block;font-size:12px;font-weight:800;color:var(--muted);margin:0 0 6px}.field input,.field select,.field textarea{width:100%;border:1px solid var(--line);background:#fff;border-radius:12px;padding:11px 12px;outline:none}.field textarea{min-height:120px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus{border-color:#aaaef9;box-shadow:0 0 0 3px rgba(91,92,240,.10)}
 .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.row.end{justify-content:flex-end}.space{justify-content:space-between}.statrow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}.stat{border:1px solid var(--line);border-radius:14px;padding:13px;background:#fbfbfe}.stat b{display:block;font-size:22px}.stat span{font-size:12px;color:var(--muted)}
-.library-grid{display:grid;grid-template-columns:280px minmax(0,1fr);gap:14px;align-items:start}.library-main{min-width:0}.folder-panel{position:sticky;top:10px}.sectionTitle{font-weight:900;margin:0 0 8px}.folderSelectRow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px}.folderSelectRow select{width:100%;border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px;font-weight:800;min-width:0}.folder-current-actions{display:flex;justify-content:flex-end;gap:3px;margin-top:5px}.folderTextBtn{border:0;background:transparent;color:var(--muted);font-size:12px;padding:5px 6px;border-radius:8px}.folderTextBtn:hover{background:#f3f4f6}.folderTextBtn.danger{color:var(--danger)}.folder-subhead{display:flex;align-items:center;justify-content:space-between;margin-top:13px}.folderScroller{display:flex;flex-direction:column;gap:7px;margin-top:7px}.folderWrap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px;align-items:center;border:1px solid var(--line);background:#fff;border-radius:10px;padding:4px}.folderWrap.active{border-color:var(--accent);background:var(--soft)}.folderListBtn{width:100%;text-align:left;border:0;background:transparent;border-radius:8px;padding:7px 6px;min-width:0}.folderListTitle{font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.folderListMeta{font-size:11px;color:var(--muted);margin-top:2px}.folderListActions{display:flex;gap:1px}.folderListActions button{border:0;background:transparent;color:var(--muted);font-size:12px;padding:5px 6px;border-radius:7px}.folderListActions button:hover{background:#fff}.folderAutoViews{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:9px;padding-top:9px;border-top:1px solid var(--line)}.folderAutoBtn{border:1px solid var(--line);background:#fafbff;border-radius:10px;padding:8px 7px;text-align:left;font-size:12px}.folderAutoBtn.active{border-color:var(--accent);background:var(--soft);color:var(--accent2)}.folderAutoBtn b{display:block;font-size:12px}.folder-badge{display:inline-flex;align-items:center;gap:4px;padding:4px 8px;border-radius:999px;background:#f1f3f8;color:#596274;font-size:10px;font-weight:800;margin-bottom:7px}.selected-folder-head{display:flex;align-items:flex-end;justify-content:space-between;gap:8px;margin-bottom:12px}.selected-folder-head h2{margin:0;font-size:20px}.selected-folder-head .sub{margin-top:3px}
-.searchbar{display:flex;gap:8px;margin-bottom:12px}.searchbar input{flex:1;border:1px solid var(--line);border-radius:12px;padding:11px 12px}.bulkbar{display:flex;align-items:center;justify-content:space-between;gap:8px;background:#fff4f4;border:1px solid #f1cccc;border-radius:14px;padding:10px 12px;margin-top:12px}
+.library-grid{display:grid;grid-template-columns:280px minmax(0,1fr);gap:14px;align-items:start}.library-main{min-width:0}.folder-panel{position:sticky;top:10px}.sectionTitle{font-weight:900;margin:0 0 8px}.folderSelectRow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px}.folderSelectRow select{width:100%;border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px;font-weight:800;min-width:0}.folder-current-actions{display:flex;justify-content:flex-end;gap:3px;margin-top:5px}.folderTextBtn{border:0;background:transparent;color:var(--muted);font-size:12px;padding:5px 6px;border-radius:8px}.folderTextBtn:hover{background:#f3f4f6}.folderTextBtn.danger{color:var(--danger)}.folder-subhead{display:flex;align-items:center;justify-content:space-between;margin-top:13px}.folderScroller{display:flex;flex-direction:column;gap:7px;margin-top:7px}.folderWrap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px;align-items:center;border:1px solid var(--line);background:#fff;border-radius:10px;padding:4px}.folderWrap.active{border-color:var(--accent);background:var(--soft)}.folderListBtn{width:100%;text-align:left;border:0;background:transparent;border-radius:8px;padding:7px 6px;min-width:0}.folderListTitle{font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.folderListMeta{font-size:11px;color:var(--muted);margin-top:2px}.folderListActions{display:flex;gap:1px}.folderListActions button{border:0;background:transparent;color:var(--muted);font-size:12px;padding:5px 6px;border-radius:7px}.folderListActions button:hover{background:#fff}
+.selected-folder-head{display:flex;align-items:flex-end;justify-content:space-between;gap:8px;margin-bottom:12px}.selected-folder-head h2{margin:0;font-size:20px}.selected-folder-head .sub{margin-top:3px}
+.deck-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.deck-card{border:1px solid var(--line);border-radius:17px;padding:14px;background:#fff}.deck-card.active{border-color:var(--accent);box-shadow:0 0 0 2px rgba(91,92,240,.08)}.deck-head{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}.deck-name{font-size:17px;font-weight:900;word-break:break-word}.deck-meta{font-size:12px;color:var(--muted);margin-top:4px}.deck-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}.deck-actions .btn{flex:1;min-width:76px}.deck-tools{display:flex;gap:2px}.deck-tools button{border:0;background:#f4f5f9;border-radius:9px;width:32px;height:32px;color:var(--muted)}
+.deck-detail-head{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin-bottom:12px}.deck-detail-head h2{margin:0}.searchbar{display:flex;gap:8px;margin-bottom:12px}.searchbar input{flex:1;border:1px solid var(--line);border-radius:12px;padding:11px 12px}.bulkbar{display:flex;align-items:center;justify-content:space-between;gap:8px;background:#fff4f4;border:1px solid #f1cccc;border-radius:14px;padding:10px 12px;margin-top:12px}
 .card-list{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.item{border:1px solid var(--line);border-radius:16px;padding:14px;background:#fff;display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:start}.item.starred{border-color:#f0c44b;background:#fffdf5}.item-main{min-width:0}.selectbox{padding-top:4px}.selectbox input{width:20px;height:20px}.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.cell{min-height:88px;background:#f8f9fc;border-radius:12px;padding:9px;display:flex;align-items:center;justify-content:center;text-align:center;word-break:break-word;font-weight:700}.cell img{width:100%;height:96px;object-fit:contain;border-radius:8px}.label{display:block;font-size:10px;color:var(--muted);font-weight:800;margin-bottom:4px}.tools{display:flex;flex-direction:column;gap:6px}.iconbtn{border:0;background:#f3f4f8;width:36px;height:36px;border-radius:10px;font-size:17px;display:grid;place-items:center}.iconbtn.star.on{background:#fff3c4;color:#b17a00}.iconbtn.delete{background:#fff0f0;color:#b53a3a}.empty{text-align:center;padding:36px 12px;color:var(--muted)}
-.badge{display:inline-block;padding:5px 9px;border-radius:999px;background:var(--soft);color:var(--accent2);font-size:11px;font-weight:800}.hidden{display:none!important}.import-box{border:1.5px dashed #cfd3de;background:#fafbff;border-radius:16px;padding:16px}.codehint{background:#111827;color:#e8ecf5;border-radius:12px;padding:12px;font:12px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace;overflow:auto;white-space:pre-wrap}
-.flashcard{min-height:340px;border-radius:22px;background:linear-gradient(160deg,#fff,#f7f7ff);border:1px solid var(--line);display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:18px}.face{border-radius:16px;background:white;border:1px solid var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:14px;min-height:235px;position:relative}.face .big{font-size:clamp(21px,4vw,34px);font-weight:900;word-break:break-word}.face img{max-width:100%;max-height:180px;object-fit:contain}.face.covered{background:#171e2e;color:#fff;cursor:pointer}.face.covered .content{filter:blur(9px);opacity:.25;user-select:none}.face.covered:after{content:"タップして表示";position:absolute;font-weight:800;color:#fff}
-.quizprompt{text-align:center;padding:18px}.quizprompt .prompt-content{font-size:28px;font-weight:900;margin:14px 0}.quizprompt img{max-height:160px;max-width:80%;object-fit:contain}.choices{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.choice{border:1px solid var(--line);background:#fff;border-radius:14px;padding:16px;font-weight:800;min-height:64px}.choice.correct{border-color:#62b88b;background:#effaf4;color:#1b6b44}.choice.wrong{border-color:#e28d8d;background:#fff1f1;color:#9d2f2f}.notice{padding:11px 13px;border-radius:12px;background:#eef8f2;color:#25714a;font-size:13px;font-weight:700}.notice.warn{background:#fff7e8;color:#906420}
+.badge{display:inline-block;padding:5px 9px;border-radius:999px;background:var(--soft);color:var(--accent2);font-size:11px;font-weight:800}.hidden{display:none!important}.import-box{border:1.5px dashed #cfd3de;background:#fafbff;border-radius:16px;padding:16px}.codehint{background:#111827;color:#e8ecf5;border-radius:12px;padding:12px;font:12px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace;overflow:auto;white-space:pre-wrap}.notice{padding:11px 13px;border-radius:12px;background:#eef8f2;color:#25714a;font-size:13px;font-weight:700}.notice.warn{background:#fff7e8;color:#906420}
+.flashcard{min-height:340px;border-radius:22px;background:linear-gradient(160deg,#fff,#f7f7ff);border:1px solid var(--line);display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:18px}.face{border-radius:16px;background:white;border:1px solid var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:14px;min-height:235px;position:relative}.face .big{font-size:clamp(21px,4vw,34px);font-weight:900;word-break:break-word}.face img{max-width:100%;max-height:180px;object-fit:contain}.face.covered{background:#171e2e;color:#fff;cursor:pointer}.face.covered .content{filter:blur(9px);opacity:.25;user-select:none}.face.covered:after{content:"タップして表示";position:absolute;font-weight:800;color:#fff}.quizprompt{text-align:center;padding:18px}.quizprompt .prompt-content{font-size:28px;font-weight:900;margin:14px 0}.quizprompt img{max-height:160px;max-width:80%;object-fit:contain}.choices{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.choice{border:1px solid var(--line);background:#fff;border-radius:14px;padding:16px;font-weight:800;min-height:64px}.choice.correct{border-color:#62b88b;background:#effaf4;color:#1b6b44}.choice.wrong{border-color:#e28d8d;background:#fff1f1;color:#9d2f2f}
+.scopeRow{display:grid;grid-template-columns:1fr 1fr;gap:8px;min-width:min(100%,420px)}.scopeRow select{width:100%;border:1px solid var(--line);border-radius:11px;background:#fff;padding:9px 10px;font-weight:700}
 .modal{position:fixed;inset:0;background:rgba(15,20,30,.45);display:flex;align-items:flex-end;justify-content:center;padding:12px;z-index:20}.sheet{width:min(720px,100%);max-height:92vh;overflow:auto;background:#fff;border-radius:22px;padding:19px;box-shadow:0 20px 60px rgba(0,0,0,.24)}.sheet h3{margin:0 0 14px}.sheet-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}.folder-row{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
 footer{text-align:center;color:#9aa2b3;font-size:12px;padding:20px}
-@media(max-width:780px){.library-grid{display:block}.folder-panel{position:static;margin-bottom:14px}.folderScroller{flex-direction:row;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding-bottom:3px}.folderScroller::-webkit-scrollbar{display:none}.folderWrap{min-width:165px;max-width:220px;flex:0 0 auto}.grid,.grid.two,.statrow{grid-template-columns:1fr 1fr}.card-list{grid-template-columns:1fr}.flashcard{grid-template-columns:1fr;min-height:auto}.face{min-height:170px}.topbar{align-items:flex-start}.trio{grid-template-columns:1fr 1fr 1fr}.cell{font-size:13px}.cell img{height:72px}}
-@media(max-width:520px){.grid,.grid.two,.statrow{grid-template-columns:1fr}.hero{padding:20px}.trio{grid-template-columns:1fr}.cell{min-height:64px}.cell img{height:95px}.choices{grid-template-columns:1fr}.item{grid-template-columns:auto 1fr}.tools{grid-column:2;flex-direction:row;justify-content:flex-end}.bulkbar{align-items:flex-start;flex-direction:column}.searchbar{flex-wrap:wrap}.searchbar input{flex-basis:100%}}
+@media(max-width:780px){.library-grid{display:block}.folder-panel{position:static;margin-bottom:14px}.folderScroller{flex-direction:row;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding-bottom:3px}.folderScroller::-webkit-scrollbar{display:none}.folderWrap{min-width:165px;max-width:220px;flex:0 0 auto}.grid,.grid.two,.statrow{grid-template-columns:1fr 1fr}.deck-list,.card-list{grid-template-columns:1fr}.flashcard{grid-template-columns:1fr;min-height:auto}.face{min-height:170px}.topbar{align-items:flex-start}.trio{grid-template-columns:1fr 1fr 1fr}.cell{font-size:13px}.cell img{height:72px}.scopeRow{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.grid,.grid.two,.statrow{grid-template-columns:1fr}.hero{padding:20px}.trio{grid-template-columns:1fr}.cell{min-height:64px}.cell img{height:95px}.choices{grid-template-columns:1fr}.item{grid-template-columns:auto 1fr}.tools{grid-column:2;flex-direction:row;justify-content:flex-end}.bulkbar{align-items:flex-start;flex-direction:column}.searchbar{flex-wrap:wrap}.searchbar input{flex-basis:100%}.deck-detail-head{align-items:flex-start;flex-direction:column}.scopeRow{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -41,10 +43,12 @@ footer{text-align:center;color:#9aa2b3;font-size:12px;padding:20px}
     <div class="top-actions"><button class="btn small" id="exportBtn">書き出し</button><button class="btn small" id="settingsBtn">設定</button></div>
   </div>
 
-  <section class="hero"><h1 id="deckTitle">3つを、ひとつにつなぐ。</h1><p>画像・用語・用語など、3項目を1セットで覚える一般学習用 Vocabstar。</p></section>
+  <section class="hero"><h1 id="deckTitle">国旗・国名・首都</h1><p>画像・用語・用語など、3項目を1セットで覚える一般学習用 Vocabstar。</p></section>
 
   <nav class="tabs">
-    <button class="tab active" data-page="library">単語帳</button><button class="tab" data-page="study">学習</button><button class="tab" data-page="quiz">四択</button><button class="tab" data-page="import">インポート</button>
+    <button class="tab active" data-page="library">単語帳</button>
+    <button class="tab" data-page="study">学習</button>
+    <button class="tab" data-page="quiz">四択</button>
   </nav>
 
   <main id="page-library" class="page">
@@ -61,69 +65,75 @@ footer{text-align:center;color:#9aa2b3;font-size:12px;padding:20px}
         </div>
         <div class="folder-subhead"><b>フォルダ一覧</b><button class="btn small" id="manageFolderBtn">管理</button></div>
         <div class="folderScroller" id="folderBar"></div>
-        <div class="folderAutoViews" id="folderAutoViews">
-          <button class="folderAutoBtn" data-folder="all"><b>すべて</b><span id="folderAllCount">0セット</span></button>
-          <button class="folderAutoBtn" data-folder="none"><b>未分類</b><span id="folderNoneCount">0セット</span></button>
-        </div>
       </aside>
 
       <div class="library-main">
-        <section class="panel">
-          <div class="selected-folder-head"><div><h2 id="selectedFolderTitle">すべて</h2><div class="sub" id="selectedFolderMeta">全フォルダのセットを表示</div></div><button class="btn primary" id="addBtn">＋ 追加</button></div>
+        <section class="panel" id="folderDeckPanel">
+          <div class="selected-folder-head">
+            <div><h2 id="selectedFolderTitle">フォルダを作成してください</h2><div class="sub" id="selectedFolderMeta"></div></div>
+            <button class="btn primary" id="addDeckBtn">＋ セット追加</button>
+          </div>
+          <div class="deck-list" id="deckList"></div>
+        </section>
+
+        <section class="panel hidden" id="deckDetailPanel">
+          <div class="deck-detail-head">
+            <div><span class="badge" id="deckFolderBadge"></span><h2 id="currentDeckTitle" style="margin-top:7px">セット</h2><div class="sub" id="currentDeckMeta"></div></div>
+            <div class="row"><button class="btn" id="importDeckBtn">インポート</button><button class="btn primary" id="addItemBtn">＋ 追加</button></div>
+          </div>
           <div class="statrow">
-            <div class="stat"><b id="countAll">0</b><span>登録セット</span></div><div class="stat"><b id="countStar">0</b><span>★</span></div><div class="stat"><b id="countImage">0</b><span>画像つき</span></div><div class="stat"><b id="countLearned">0</b><span>学習済み</span></div>
+            <div class="stat"><b id="countAll">0</b><span>登録</span></div>
+            <div class="stat"><b id="countStar">0</b><span>★</span></div>
+            <div class="stat"><b id="countImage">0</b><span>画像つき</span></div>
+            <div class="stat"><b id="countLearned">0</b><span>学習済み</span></div>
           </div>
           <div class="searchbar"><input id="searchInput" placeholder="3項目のどこからでも検索"><button class="btn" id="bulkModeBtn">選択削除</button></div>
           <div class="row space"><span class="sub" id="schemaText"></span><label class="sub"><input type="checkbox" id="starOnly"> ★のみ</label></div>
-          <div id="bulkBar" class="bulkbar hidden"><span><b id="selectedCount">0</b>件を選択中</span><div class="row"><button class="btn small" id="cancelBulk">キャンセル</button><button class="btn small danger solid" id="deleteSelected">選択したセットを削除</button></div></div>
+          <div id="bulkBar" class="bulkbar hidden"><span><b id="selectedCount">0</b>件を選択中</span><div class="row"><button class="btn small" id="cancelBulk">キャンセル</button><button class="btn small danger solid" id="deleteSelected">選択した項目を削除</button></div></div>
+          <div class="card-list" id="cardList" style="margin-top:14px"></div>
         </section>
-        <section class="card-list" id="cardList"></section>
       </div>
     </div>
   </main>
 
   <main id="page-study" class="page hidden">
     <section class="panel">
-      <div class="row space"><div><h2>3面カード</h2><div class="sub">隠したい面をタップして表示できます。</div></div><div class="row"><select id="studyFolder" class="btn small"></select><label class="sub"><input type="checkbox" id="studyStarOnly"> ★のみ</label></div></div>
+      <div class="row space"><div><h2>3面カード</h2><div class="sub">フォルダとセットを選んで学習します。</div></div><div class="scopeRow"><select id="studyFolder"></select><select id="studyDeck"></select></div></div>
+      <div class="row end" style="margin-top:8px"><label class="sub"><input type="checkbox" id="studyStarOnly"> ★のみ</label></div>
       <div id="studyArea" style="margin-top:14px"></div><div class="row end" style="margin-top:12px"><button class="btn" id="prevStudy">← 前</button><button class="btn primary" id="nextStudy">次 →</button></div>
     </section>
   </main>
 
   <main id="page-quiz" class="page hidden">
     <section class="panel">
-      <div class="row space"><div><h2>四択</h2><div class="sub">3項目のどの組み合わせからでも出題します。</div></div><div class="row"><select id="quizFolder" class="btn small"></select><label class="sub"><input type="checkbox" id="quizStarOnly"> ★のみ</label></div></div>
+      <div class="row space"><div><h2>四択</h2><div class="sub">選択したセットの中だけから出題します。</div></div><div class="scopeRow"><select id="quizFolder"></select><select id="quizDeck"></select></div></div>
+      <div class="row end" style="margin-top:8px"><label class="sub"><input type="checkbox" id="quizStarOnly"> ★のみ</label></div>
       <div id="quizArea"></div><div class="row end"><button class="btn primary" id="nextQuiz">次の問題</button></div>
-    </section>
-  </main>
-
-  <main id="page-import" class="page hidden">
-    <section class="panel">
-      <h2>まとめてインポート</h2><p class="sub">1行＝1セット。3列をタブ区切りまたはCSVで読み込みます。画像列は「画像ファイル名」または画像URLに対応します。</p>
-      <div class="grid" style="margin:14px 0"><div class="field"><label>1列目</label><select id="importType0"><option value="text">文字</option><option value="image">画像</option></select></div><div class="field"><label>2列目</label><select id="importType1"><option value="text">文字</option><option value="image">画像</option></select></div><div class="field"><label>3列目</label><select id="importType2"><option value="text">文字</option><option value="image">画像</option></select></div></div>
-      <div class="field" style="margin-bottom:12px"><label>保存先フォルダ</label><select id="importFolder"></select></div>
-      <div class="import-box"><div class="field"><label>データを貼り付け</label><textarea id="importText" placeholder="japan.png\t日本\t東京\nfrance.png\tフランス\tパリ"></textarea></div><div class="row" style="margin-top:10px"><button class="btn" id="pickImagesBtn">画像を選択</button><input type="file" id="imageFiles" accept="image/*" multiple hidden><span class="sub" id="imageFileStatus">画像 0枚</span></div><div class="row end" style="margin-top:12px"><button class="btn primary" id="runImport">インポート</button></div></div>
-      <div style="margin-top:14px" class="codehint">例（国旗・国名・首都）
-1列目を「画像」に設定
-japan.png    日本    東京
-france.png   フランス   パリ
-
-→ japan.png / france.png を「画像を選択」から同時に選ぶだけ。</div><div id="importNotice" style="margin-top:12px"></div>
     </section>
   </main>
 
   <footer>データはこの端末のブラウザ内に保存されます。</footer>
 </div>
 
-<div id="editModal" class="modal hidden"><div class="sheet"><h3 id="modalTitle">セットを追加</h3><div class="field" style="margin-bottom:12px"><label>フォルダ</label><select id="editFolder"></select></div><div id="editFields" class="grid"></div><div class="sheet-actions"><button class="btn" data-close>キャンセル</button><button class="btn primary" id="saveItem">保存</button></div></div></div>
+<div id="editModal" class="modal hidden"><div class="sheet"><h3 id="modalTitle">項目を追加</h3><div class="sub" id="editDeckLabel" style="margin-bottom:12px"></div><div id="editFields" class="grid"></div><div class="sheet-actions"><button class="btn" data-close>キャンセル</button><button class="btn primary" id="saveItem">保存</button></div></div></div>
+
+<div id="importModal" class="modal hidden"><div class="sheet"><h3 id="importTitle">セットにインポート</h3><p class="sub">1行＝1件。3列をタブ区切りまたはCSVで読み込みます。インポート先は今選んでいるセットです。</p><div class="grid" style="margin:14px 0"><div class="field"><label>1列目</label><select id="importType0"><option value="text">文字</option><option value="image">画像</option></select></div><div class="field"><label>2列目</label><select id="importType1"><option value="text">文字</option><option value="image">画像</option></select></div><div class="field"><label>3列目</label><select id="importType2"><option value="text">文字</option><option value="image">画像</option></select></div></div><div class="import-box"><div class="field"><label>データを貼り付け</label><textarea id="importText" placeholder="japan.png\t日本\t東京\nfrance.png\tフランス\tパリ"></textarea></div><div class="row" style="margin-top:10px"><button class="btn" id="pickImagesBtn">画像を選択</button><input type="file" id="imageFiles" accept="image/*" multiple hidden><span class="sub" id="imageFileStatus">画像 0枚</span></div><div class="row end" style="margin-top:12px"><button class="btn" data-close>キャンセル</button><button class="btn primary" id="runImport">インポート</button></div></div><div style="margin-top:14px" class="codehint">例（国旗・国名・首都）
+1列目を「画像」に設定
+japan.png    日本    東京
+france.png   フランス   パリ
+
+→ japan.png / france.png を「画像を選択」から同時に選ぶだけ。</div><div id="importNotice" style="margin-top:12px"></div></div></div>
 
 <div id="settingsModal" class="modal hidden"><div class="sheet"><h3>単語帳の設定</h3><div class="field"><label>単語帳名</label><input id="settingTitle" value="Vocabstar Trio"></div><div class="grid" style="margin-top:12px"><div class="field"><label>項目1の名前</label><input id="label0" value="画像"><select id="type0" style="margin-top:6px"><option value="image">画像</option><option value="text">文字</option></select></div><div class="field"><label>項目2の名前</label><input id="label1" value="国名"><select id="type1" style="margin-top:6px"><option value="text">文字</option><option value="image">画像</option></select></div><div class="field"><label>項目3の名前</label><input id="label2" value="首都"><select id="type2" style="margin-top:6px"><option value="text">文字</option><option value="image">画像</option></select></div></div><div class="sheet-actions"><button class="btn" data-close>キャンセル</button><button class="btn primary" id="saveSettings">保存</button></div></div></div>
 
-<div id="folderModal" class="modal hidden"><div class="sheet"><h3>フォルダ管理</h3><div class="row" style="margin-bottom:14px"><input id="newFolderName" placeholder="フォルダ名" style="flex:1;border:1px solid var(--line);border-radius:12px;padding:11px 12px"><button class="btn primary" id="createFolder">追加</button></div><div id="folderManageList"></div><p class="sub">フォルダを削除しても、中のセットは削除されず「未分類」に移動します。</p><div class="sheet-actions"><button class="btn" data-close>閉じる</button></div></div></div>
+<div id="folderModal" class="modal hidden"><div class="sheet"><h3>フォルダ管理</h3><div class="row" style="margin-bottom:14px"><input id="newFolderName" placeholder="フォルダ名" style="flex:1;border:1px solid var(--line);border-radius:12px;padding:11px 12px"><button class="btn primary" id="createFolder">追加</button></div><div id="folderManageList"></div><p class="sub">フォルダを削除すると、そのフォルダ内のセットと登録データも削除されます。</p><div class="sheet-actions"><button class="btn" data-close>閉じる</button></div></div></div>
+
+<div id="deckModal" class="modal hidden"><div class="sheet"><h3>セットを追加</h3><div class="field"><label>セット名</label><input id="newDeckName" placeholder="例：国旗・国名・首都 1"></div><div class="sheet-actions"><button class="btn" data-close>キャンセル</button><button class="btn primary" id="createDeck">追加</button></div></div></div>
 
 <script>
 const DB_NAME='vocabstar-trio-db', DB_VERSION=1;
-let db, items=[], folders=[], editId=null, studyIndex=0, quizState=null, currentFolder='all', bulkMode=false, selectedIds=new Set();
-let config={title:'国旗・国名・首都', labels:['国旗','国名','首都'], types:['image','text','text']};
+let db, items=[], folders=[], decks=[], editId=null, importDeckId=null, currentFolder=null, currentDeck=null, studyIndex=0, quizState=null, bulkMode=false, selectedIds=new Set();
+let config={title:'国旗・国名・首都',labels:['国旗','国名','首都'],types:['image','text','text']};
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const uid=()=>crypto.randomUUID?crypto.randomUUID():Date.now().toString(36)+Math.random().toString(36).slice(2);
 function openDB(){return new Promise((resolve,reject)=>{const r=indexedDB.open(DB_NAME,DB_VERSION);r.onupgradeneeded=e=>{const d=e.target.result;if(!d.objectStoreNames.contains('items'))d.createObjectStore('items',{keyPath:'id'});if(!d.objectStoreNames.contains('meta'))d.createObjectStore('meta',{keyPath:'key'});};r.onsuccess=()=>{db=r.result;resolve(db)};r.onerror=()=>reject(r.error)})}
@@ -132,76 +142,145 @@ function getAll(store){return new Promise((res,rej)=>{const r=tx(store).getAll()
 function put(store,val){return new Promise((res,rej)=>{const r=tx(store,'readwrite').put(val);r.onsuccess=()=>res();r.onerror=()=>rej(r.error)})}
 function del(store,key){return new Promise((res,rej)=>{const r=tx(store,'readwrite').delete(key);r.onsuccess=()=>res();r.onerror=()=>rej(r.error)})}
 function getMeta(key){return new Promise(res=>{const r=tx('meta').get(key);r.onsuccess=()=>res(r.result?.value);r.onerror=()=>res(undefined)})}
-async function saveConfig(){await put('meta',{key:'config',value:config})} async function saveFolders(){await put('meta',{key:'folders',value:folders})}
-function textFor(v){return (v??'').toString()} function esc(s){return textFor(s).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
+async function saveConfig(){await put('meta',{key:'config',value:config})}
+async function saveFolders(){await put('meta',{key:'folders',value:folders})}
+async function saveDecks(){await put('meta',{key:'decks',value:decks})}
+function textFor(v){return(v??'').toString()}
+function esc(s){return textFor(s).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
 function mediaHTML(value,type){if(type==='image')return value?`<img src="${esc(value)}" alt="">`:'<span class="sub">画像なし</span>';return `<span>${esc(value)||'<span class="sub">未入力</span>'}</span>`}
-function folderName(id){return folders.find(f=>f.id===id)?.name||'未分類'}
-function folderMatch(x,folder){if(folder==='all')return true;if(folder==='none')return !x.folderId;return x.folderId===folder}
-function folderOptions(selected='',includeAll=false){let h=includeAll?'<option value="all">すべてのフォルダ</option>':'';h+='<option value="none">未分類</option>';h+=folders.map(f=>`<option value="${esc(f.id)}">${esc(f.name)}</option>`).join('');return h.replace(`value="${esc(selected)}"`,`value="${esc(selected)}" selected`)}
-async function init(){await openDB();config=await getMeta('config')||config;folders=await getMeta('folders')||[];items=await getAll('items');syncSettingsUI();renderAll();newQuiz()}
-function syncSettingsUI(){$('#deckTitle').textContent=config.title;$('#settingTitle').value=config.title;config.labels.forEach((v,i)=>$('#label'+i).value=v);config.types.forEach((v,i)=>{$('#type'+i).value=v;$('#importType'+i).value=v});renderFolderControls()}
+function folderName(id){return folders.find(f=>f.id===id)?.name||''}
+function deckName(id){return decks.find(d=>d.id===id)?.name||''}
+function decksInFolder(folderId){return decks.filter(d=>d.folderId===folderId)}
+function itemsInDeck(deckId){return items.filter(x=>x.deckId===deckId)}
+function folderOptions(selected){if(!folders.length)return '<option value="">フォルダなし</option>';return folders.map(f=>`<option value="${esc(f.id)}" ${f.id===selected?'selected':''}>${esc(f.name)}</option>`).join('')}
+function deckOptions(folderId,selected){let ds=decksInFolder(folderId);if(!ds.length)return '<option value="">セットなし</option>';return ds.map(d=>`<option value="${esc(d.id)}" ${d.id===selected?'selected':''}>${esc(d.name)}</option>`).join('')}
+
+async function migrateLegacy(){
+  let changed=false;
+  if(!decks.length && items.length){
+    if(!folders.length){folders=[{id:uid(),name:'マイフォルダ',createdAt:Date.now()}];await saveFolders()}
+    const byFolder=new Map();
+    for(const x of items){let fid=x.folderId&&folders.some(f=>f.id===x.folderId)?x.folderId:folders[0].id;if(!byFolder.has(fid))byFolder.set(fid,[]);byFolder.get(fid).push(x)}
+    for(const [fid,arr] of byFolder){let d={id:uid(),folderId:fid,name:'既存データ',createdAt:Date.now()};decks.push(d);for(const x of arr){x.deckId=d.id;delete x.folderId;await put('items',x)}}
+    await saveDecks();changed=true;
+  }else{
+    const orphan=items.filter(x=>!x.deckId||!decks.some(d=>d.id===x.deckId));
+    if(orphan.length){
+      if(!folders.length){folders=[{id:uid(),name:'マイフォルダ',createdAt:Date.now()}];await saveFolders()}
+      let d=decks.find(v=>v.folderId===folders[0].id&&v.name==='既存データ');if(!d){d={id:uid(),folderId:folders[0].id,name:'既存データ',createdAt:Date.now()};decks.push(d);await saveDecks()}
+      for(const x of orphan){x.deckId=d.id;delete x.folderId;await put('items',x)}changed=true;
+    }
+  }
+  return changed;
+}
+
+async function init(){
+  await openDB();config=await getMeta('config')||config;folders=await getMeta('folders')||[];decks=await getMeta('decks')||[];items=await getAll('items');await migrateLegacy();
+  currentFolder=folders[0]?.id||null;currentDeck=decksInFolder(currentFolder)[0]?.id||null;
+  syncSettingsUI();renderAll();syncStudyQuizSelectors();renderStudy();newQuiz();
+}
+function syncSettingsUI(){
+  $('#deckTitle').textContent=config.title;$('#settingTitle').value=config.title;
+  config.labels.forEach((v,i)=>$('#label'+i).value=v);
+  config.types.forEach((v,i)=>{$('#type'+i).value=v;$('#importType'+i).value=v});
+}
+function renderAll(){renderFolderControls();renderDecks();renderDeckDetail();$('#schemaText').textContent=config.labels.join(' ・ ')}
 function renderFolderControls(){
-  const folderSelect=$('#folderSelect');
-  folderSelect.innerHTML=folderOptions(currentFolder,true);
-  folderSelect.value=currentFolder;
-  $('#folderBar').innerHTML=folders.length?folders.map(f=>{let count=items.filter(x=>x.folderId===f.id).length;return `<div class="folderWrap ${currentFolder===f.id?'active':''}"><button class="folderListBtn" data-folder="${esc(f.id)}"><div class="folderListTitle">${esc(f.name)}</div><div class="folderListMeta">${count}セット</div></button><div class="folderListActions"><button data-rename-folder="${esc(f.id)}" title="名前変更">✎</button><button data-delete-folder="${esc(f.id)}" title="削除">×</button></div></div>`}).join(''):'<div class="sub" style="padding:9px 2px">まだフォルダがありません。</div>';
-  $('#folderAllCount').textContent=`${items.length}セット`;
-  $('#folderNoneCount').textContent=`${items.filter(x=>!x.folderId).length}セット`;
-  $$('#folderAutoViews [data-folder]').forEach(b=>b.classList.toggle('active',b.dataset.folder===currentFolder));
-  const real=folders.find(f=>f.id===currentFolder);
-  $('#renameCurrentFolder').disabled=!real;$('#deleteCurrentFolder').disabled=!real;
-  $('#renameCurrentFolder').style.opacity=real?'1':'.35';$('#deleteCurrentFolder').style.opacity=real?'1':'.35';
-  let studyVal=$('#studyFolder')?.value||'all',quizVal=$('#quizFolder')?.value||'all';
-  $('#studyFolder').innerHTML=folderOptions(studyVal,true);$('#quizFolder').innerHTML=folderOptions(quizVal,true);$('#importFolder').innerHTML=folderOptions($('#importFolder').value||'none',false);$('#editFolder').innerHTML=folderOptions($('#editFolder').value||'none',false);
+  $('#folderSelect').innerHTML=folderOptions(currentFolder);$('#folderSelect').value=currentFolder||'';
+  $('#folderBar').innerHTML=folders.length?folders.map(f=>{let ds=decksInFolder(f.id);let n=ds.reduce((s,d)=>s+itemsInDeck(d.id).length,0);return `<div class="folderWrap ${currentFolder===f.id?'active':''}"><button class="folderListBtn" data-folder="${esc(f.id)}"><div class="folderListTitle">${esc(f.name)}</div><div class="folderListMeta">${ds.length}セット・${n}件</div></button><div class="folderListActions"><button data-rename-folder="${esc(f.id)}" title="名前変更">✎</button><button data-delete-folder="${esc(f.id)}" title="削除">×</button></div></div>`}).join(''):'<div class="empty">フォルダを作成してください。</div>';
+  const real=folders.find(f=>f.id===currentFolder);$('#renameCurrentFolder').disabled=!real;$('#deleteCurrentFolder').disabled=!real;$('#addDeckBtn').disabled=!real;
   renderFolderManager();
 }
-function setCurrentFolder(id){currentFolder=id;selectedIds.clear();renderAll()}
-function renderFolderManager(){let el=$('#folderManageList');if(!el)return;if(!folders.length){el.innerHTML='<div class="empty">まだフォルダがありません。</div>';return}el.innerHTML=folders.map(f=>`<div class="folder-row"><div><b>${esc(f.name)}</b><div class="sub">${items.filter(x=>x.folderId===f.id).length}セット</div></div><button class="btn small" data-rename-folder="${esc(f.id)}">名前変更</button><button class="btn small danger" data-delete-folder="${esc(f.id)}">削除</button></div>`).join('')}
-function renderAll(){renderFolderControls();renderLibrary();renderStudy();$('#schemaText').textContent=config.labels.join(' ・ ')}
-function filteredItems(starOnly=false){let q=$('#searchInput')?.value?.trim().toLowerCase()||'';return items.filter(x=>folderMatch(x,currentFolder)&&(!starOnly||x.star)&&(!q||x.values.some(v=>textFor(v).toLowerCase().includes(q))))}
-function renderLibrary(){
-  let arr=filteredItems($('#starOnly').checked);$('#countAll').textContent=items.length;$('#countStar').textContent=items.filter(x=>x.star).length;$('#countImage').textContent=items.filter(x=>config.types.some((t,i)=>t==='image'&&x.values[i])).length;$('#countLearned').textContent=items.filter(x=>x.learned).length;$('#selectedCount').textContent=selectedIds.size;$('#bulkBar').classList.toggle('hidden',!bulkMode);$('#bulkModeBtn').textContent=bulkMode?'選択中':'選択削除';
-  let title=currentFolder==='all'?'すべて':currentFolder==='none'?'未分類':folderName(currentFolder),scopeCount=items.filter(x=>folderMatch(x,currentFolder)).length;$('#selectedFolderTitle').textContent=title;$('#selectedFolderMeta').textContent=currentFolder==='all'?`全フォルダ・${scopeCount}セット`:`${scopeCount}セット`;
-  const list=$('#cardList');if(!arr.length){list.innerHTML='<div class="panel empty">このフォルダにはセットがありません。<br>「＋ 追加」か「インポート」から登録できます。</div>';return}
-  list.innerHTML=arr.map(x=>`<article class="item ${x.star?'starred':''}">${bulkMode?`<div class="selectbox"><input type="checkbox" data-select="${x.id}" ${selectedIds.has(x.id)?'checked':''}></div>`:'<div></div>'}<div class="item-main"><span class="folder-badge">📁 ${esc(folderName(x.folderId))}</span><div class="trio">${x.values.map((v,i)=>`<div><span class="label">${esc(config.labels[i])}</span><div class="cell">${mediaHTML(v,config.types[i])}</div></div>`).join('')}</div></div><div class="tools"><button class="iconbtn star ${x.star?'on':''}" data-star="${x.id}" title="★">★</button><button class="iconbtn" data-edit="${x.id}" title="編集">✎</button><button class="iconbtn delete" data-delete="${x.id}" title="削除">🗑</button></div></article>`).join('')
+function renderFolderManager(){
+  let el=$('#folderManageList');if(!folders.length){el.innerHTML='<div class="empty">まだフォルダがありません。</div>';return}
+  el.innerHTML=folders.map(f=>{let ds=decksInFolder(f.id),n=ds.reduce((s,d)=>s+itemsInDeck(d.id).length,0);return `<div class="folder-row"><div><b>${esc(f.name)}</b><div class="sub">${ds.length}セット・${n}件</div></div><button class="btn small" data-rename-folder="${esc(f.id)}">名前変更</button><button class="btn small danger" data-delete-folder="${esc(f.id)}">削除</button></div>`}).join('')
 }
-async function toggleStar(id){let x=items.find(v=>v.id===id);if(!x)return;x.star=!x.star;await put('items',x);renderAll()}
-async function deleteItem(id){if(!confirm('このセットを削除しますか？\nこの操作は元に戻せません。'))return;await del('items',id);items=items.filter(v=>v.id!==id);selectedIds.delete(id);renderAll();newQuiz()}
-async function deleteSelected(){if(!selectedIds.size)return;if(!confirm(`選択した${selectedIds.size}セットを削除しますか？\nこの操作は元に戻せません。`))return;for(const id of selectedIds)await del('items',id);items=items.filter(x=>!selectedIds.has(x.id));selectedIds.clear();bulkMode=false;renderAll();newQuiz()}
-function openEditor(id=null){editId=id;let x=items.find(v=>v.id===id)||{values:['','',''],folderId:currentFolder!=='all'&&currentFolder!=='none'?currentFolder:null};$('#modalTitle').textContent=id?'セットを編集':'セットを追加';$('#editFolder').innerHTML=folderOptions(x.folderId||'none',false);$('#editFields').innerHTML=config.labels.map((lab,i)=>config.types[i]==='image'?`<div class="field"><label>${esc(lab)}（画像）</label><input id="ev${i}" placeholder="画像URL またはデータURL" value="${esc(x.values[i]||'')}"><input type="file" id="ef${i}" accept="image/*" style="margin-top:7px"></div>`:`<div class="field"><label>${esc(lab)}</label><input id="ev${i}" value="${esc(x.values[i]||'')}"></div>`).join('');$('#editModal').classList.remove('hidden')}
-function fileToDataURL(file){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result);r.onerror=()=>rej(r.error);r.readAsDataURL(file)})}
-async function saveEditor(){let vals=[];for(let i=0;i<3;i++){let v=$('#ev'+i).value.trim();if(config.types[i]==='image'){let f=$('#ef'+i)?.files?.[0];if(f)v=await fileToDataURL(f)}vals.push(v)}if(vals.every(v=>!v)){alert('少なくとも1項目を入力してください');return}let old=items.find(v=>v.id===editId),folderVal=$('#editFolder').value;let obj={id:editId||uid(),values:vals,folderId:folderVal==='none'?null:folderVal,star:old?.star||false,learned:old?.learned||false,createdAt:old?.createdAt||Date.now(),updatedAt:Date.now()};await put('items',obj);if(old)Object.assign(old,obj);else items.unshift(obj);closeModals();renderAll();newQuiz()}
-function closeModals(){$$('.modal').forEach(m=>m.classList.add('hidden'))}
-function poolFor(folderSel,starOnly){let folder=folderSel||'all';return items.filter(x=>folderMatch(x,folder)&&(!starOnly||x.star))}
-function renderStudy(){let arr=poolFor($('#studyFolder')?.value||'all',$('#studyStarOnly')?.checked);const a=$('#studyArea');if(!arr.length){a.innerHTML='<div class="empty">学習できるセットがありません。</div>';return}studyIndex=(studyIndex+arr.length)%arr.length;let x=arr[studyIndex];a.innerHTML=`<div class="row space"><div><span class="badge">${studyIndex+1} / ${arr.length}</span> <span class="folder-badge">📁 ${esc(folderName(x.folderId))}</span></div><button class="iconbtn star ${x.star?'on':''}" data-study-star="${x.id}">★</button></div><div class="flashcard" style="margin-top:10px">${x.values.map((v,i)=>`<div class="face covered" data-reveal><span class="label">${esc(config.labels[i])}</span><div class="content ${config.types[i]==='text'?'big':''}">${mediaHTML(v,config.types[i])}</div></div>`).join('')}</div>`}
-function moveStudy(d){studyIndex+=d;renderStudy()}
-function sample(arr,n){return [...arr].sort(()=>Math.random()-.5).slice(0,n)}
-function newQuiz(){let pool=poolFor($('#quizFolder')?.value||'all',$('#quizStarOnly')?.checked);const qa=$('#quizArea');if(pool.length<2){qa.innerHTML='<div class="empty">四択には同じ対象内に2セット以上必要です。</div>';quizState=null;return}let answer=pool[Math.floor(Math.random()*pool.length)],pairs=[];for(let p=0;p<3;p++)for(let a=0;a<3;a++)if(p!==a)pairs.push([p,a]);let [promptIdx,answerIdx]=pairs[Math.floor(Math.random()*pairs.length)],validDistractors=pool.filter(x=>x.id!==answer.id&&x.values[answerIdx]&&x.values[answerIdx]!==answer.values[answerIdx]),count=Math.min(3,validDistractors.length),choices=[answer,...sample(validDistractors,count)].sort(()=>Math.random()-.5);quizState={answerId:answer.id,answerIdx,locked:false};qa.innerHTML=`<div class="quizprompt"><span class="badge">${esc(config.labels[promptIdx])} → ${esc(config.labels[answerIdx])}</span><div class="prompt-content">${mediaHTML(answer.values[promptIdx],config.types[promptIdx])}</div><div class="sub">正しい「${esc(config.labels[answerIdx])}」は？</div></div><div class="choices">${choices.map((x,i)=>`<button class="choice" data-choice="${i}" data-id="${x.id}">${mediaHTML(x.values[answerIdx],config.types[answerIdx])}</button>`).join('')}</div><div id="quizFeedback" style="margin-top:12px"></div>`}
-function answerQuiz(btn){if(!quizState||quizState.locked)return;quizState.locked=true;let correct=btn.dataset.id===quizState.answerId;btn.classList.add(correct?'correct':'wrong');$$('[data-choice]').forEach(b=>{if(b.dataset.id===quizState.answerId)b.classList.add('correct')});$('#quizFeedback').innerHTML=`<div class="notice ${correct?'':'warn'}">${correct?'正解！':'不正解。正解を緑で表示しました。'}</div>`;let x=items.find(v=>v.id===quizState.answerId);if(x){x.learned=true;put('items',x);renderLibrary()}}
+function renderDecks(){
+  const f=folders.find(x=>x.id===currentFolder),list=$('#deckList');
+  if(!f){$('#selectedFolderTitle').textContent='フォルダを作成してください';$('#selectedFolderMeta').textContent='';list.innerHTML='<div class="empty">左の「＋」からフォルダを作成してください。</div>';return}
+  const ds=decksInFolder(f.id);$('#selectedFolderTitle').textContent=f.name;$('#selectedFolderMeta').textContent=`${ds.length}セット`;
+  if(!ds.length){list.innerHTML='<div class="empty">このフォルダにはセットがありません。<br>「＋ セット追加」から作成してください。</div>';return}
+  list.innerHTML=ds.map(d=>{let arr=itemsInDeck(d.id),stars=arr.filter(x=>x.star).length;return `<div class="deck-card ${currentDeck===d.id?'active':''}"><div class="deck-head"><div><div class="deck-name">${esc(d.name)}</div><div class="deck-meta">${arr.length}件${stars?` ・ ★${stars}`:''}</div></div><div class="deck-tools"><button data-rename-deck="${esc(d.id)}" title="名前変更">✎</button><button data-delete-deck="${esc(d.id)}" title="削除">×</button></div></div><div class="deck-actions"><button class="btn small ${currentDeck===d.id?'primary':'ghost'}" data-open-deck="${esc(d.id)}">${currentDeck===d.id?'開いています':'開く'}</button><button class="btn small" data-import-deck="${esc(d.id)}">インポート</button></div></div>`}).join('')
+}
+function renderDeckDetail(){
+  const d=decks.find(x=>x.id===currentDeck);if(!d||d.folderId!==currentFolder){$('#deckDetailPanel').classList.add('hidden');return}
+  $('#deckDetailPanel').classList.remove('hidden');$('#deckFolderBadge').textContent='📁 '+folderName(d.folderId);$('#currentDeckTitle').textContent=d.name;
+  let arr=itemsInDeck(d.id);$('#currentDeckMeta').textContent=`${arr.length}件`;
+  $('#countAll').textContent=arr.length;$('#countStar').textContent=arr.filter(x=>x.star).length;$('#countImage').textContent=arr.filter(x=>x.values.some((v,i)=>config.types[i]==='image'&&v)).length;$('#countLearned').textContent=arr.filter(x=>x.learned).length;
+  renderLibrary();
+}
+function filteredItems(){let q=$('#searchInput').value.trim().toLowerCase(),star=$('#starOnly').checked;return itemsInDeck(currentDeck).filter(x=>(!star||x.star)&&(!q||x.values.some(v=>textFor(v).toLowerCase().includes(q))))}
+function renderLibrary(){
+  if(!currentDeck)return;let arr=filteredItems(),el=$('#cardList');$('#bulkBar').classList.toggle('hidden',!bulkMode);$('#selectedCount').textContent=selectedIds.size;
+  if(!arr.length){el.innerHTML='<div class="empty">この条件に合う項目はありません。</div>';return}
+  el.innerHTML=arr.map(x=>`<div class="item ${x.star?'starred':''}">${bulkMode?`<div class="selectbox"><input type="checkbox" data-select="${x.id}" ${selectedIds.has(x.id)?'checked':''}></div>`:'<div></div>'}<div class="item-main"><div class="trio">${x.values.map((v,i)=>`<div><span class="label">${esc(config.labels[i])}</span><div class="cell">${mediaHTML(v,config.types[i])}</div></div>`).join('')}</div></div><div class="tools"><button class="iconbtn star ${x.star?'on':''}" data-star="${x.id}" title="星">★</button><button class="iconbtn" data-edit="${x.id}" title="編集">✎</button><button class="iconbtn delete" data-delete="${x.id}" title="削除">🗑</button></div></div>`).join('')
+}
+function setCurrentFolder(id){currentFolder=id;currentDeck=decksInFolder(id)[0]?.id||null;selectedIds.clear();bulkMode=false;renderAll();syncStudyQuizSelectors()}
+function setCurrentDeck(id){let d=decks.find(v=>v.id===id);if(!d)return;currentFolder=d.folderId;currentDeck=id;selectedIds.clear();bulkMode=false;renderAll();syncStudyQuizSelectors()}
+
+function openEditor(id=null){
+  if(!currentDeck){alert('先にセットを作成してください。');return}editId=id;let x=items.find(v=>v.id===id)||{values:['','','']};$('#modalTitle').textContent=id?'項目を編集':'項目を追加';$('#editDeckLabel').textContent=`${folderName(currentFolder)} / ${deckName(currentDeck)}`;
+  $('#editFields').innerHTML=config.labels.map((lab,i)=>config.types[i]==='image'?`<div class="field"><label>${esc(lab)}（画像）</label><input id="ev${i}" placeholder="画像URL またはデータURL" value="${esc(x.values[i]||'')}"><input type="file" id="ef${i}" accept="image/*" style="margin-top:7px"></div>`:`<div class="field"><label>${esc(lab)}</label><input id="ev${i}" value="${esc(x.values[i]||'')}"></div>`).join('');$('#editModal').classList.remove('hidden')
+}
+function fileToDataURL(f){return new Promise((res,rej)=>{let r=new FileReader();r.onload=()=>res(r.result);r.onerror=rej;r.readAsDataURL(f)})}
+async function saveEditor(){
+  let vals=[];for(let i=0;i<3;i++){let v=$('#ev'+i).value.trim();if(config.types[i]==='image'){let f=$('#ef'+i)?.files?.[0];if(f)v=await fileToDataURL(f)}vals.push(v)}if(vals.every(v=>!v)){alert('少なくとも1項目を入力してください');return}
+  let old=items.find(v=>v.id===editId),obj={id:editId||uid(),deckId:currentDeck,values:vals,star:old?.star||false,learned:old?.learned||false,createdAt:old?.createdAt||Date.now(),updatedAt:Date.now()};await put('items',obj);if(old)Object.assign(old,obj);else items.unshift(obj);closeModals();renderAll();renderStudy();newQuiz()
+}
+async function toggleStar(id){let x=items.find(v=>v.id===id);if(!x)return;x.star=!x.star;x.updatedAt=Date.now();await put('items',x);renderDecks();renderDeckDetail()}
+async function deleteItem(id){if(!confirm('この項目を削除しますか？'))return;await del('items',id);items=items.filter(v=>v.id!==id);selectedIds.delete(id);renderAll();renderStudy();newQuiz()}
+async function deleteSelected(){if(!selectedIds.size)return;if(!confirm(`${selectedIds.size}件を削除しますか？`))return;for(const id of selectedIds)await del('items',id);items=items.filter(x=>!selectedIds.has(x.id));selectedIds.clear();bulkMode=false;renderAll();renderStudy();newQuiz()}
+
+async function createFolder(){let name=$('#newFolderName').value.trim();if(!name)return;if(folders.some(f=>f.name===name)){alert('同じ名前のフォルダがあります。');return}let f={id:uid(),name,createdAt:Date.now()};folders.push(f);await saveFolders();currentFolder=f.id;currentDeck=null;$('#newFolderName').value='';closeModals();renderAll();syncStudyQuizSelectors()}
+async function renameFolder(id){let f=folders.find(x=>x.id===id);if(!f)return;let name=prompt('新しいフォルダ名',f.name)?.trim();if(!name||name===f.name)return;if(folders.some(x=>x.id!==id&&x.name===name)){alert('同じ名前のフォルダがあります。');return}f.name=name;await saveFolders();renderAll();syncStudyQuizSelectors()}
+async function deleteFolder(id){let f=folders.find(x=>x.id===id);if(!f)return;let ds=decksInFolder(id),ids=new Set(ds.map(d=>d.id)),count=items.filter(x=>ids.has(x.deckId)).length;if(!confirm(`「${f.name}」を削除しますか？\n中の${ds.length}セット・${count}件もすべて削除されます。`))return;for(const x of items.filter(x=>ids.has(x.deckId)))await del('items',x.id);items=items.filter(x=>!ids.has(x.deckId));decks=decks.filter(d=>d.folderId!==id);folders=folders.filter(x=>x.id!==id);await saveDecks();await saveFolders();currentFolder=folders[0]?.id||null;currentDeck=decksInFolder(currentFolder)[0]?.id||null;renderAll();syncStudyQuizSelectors();renderStudy();newQuiz()}
+
+function openDeckModal(){if(!currentFolder){alert('先にフォルダを作成してください。');return}$('#newDeckName').value='';$('#deckModal').classList.remove('hidden');setTimeout(()=>$('#newDeckName').focus(),50)}
+async function createDeck(){let name=$('#newDeckName').value.trim();if(!name)return;let ds=decksInFolder(currentFolder);if(ds.some(d=>d.name===name)){alert('同じフォルダ内に同名のセットがあります。');return}let d={id:uid(),folderId:currentFolder,name,createdAt:Date.now()};decks.push(d);await saveDecks();currentDeck=d.id;closeModals();renderAll();syncStudyQuizSelectors()}
+async function renameDeck(id){let d=decks.find(x=>x.id===id);if(!d)return;let name=prompt('新しいセット名',d.name)?.trim();if(!name||name===d.name)return;if(decksInFolder(d.folderId).some(x=>x.id!==id&&x.name===name)){alert('同じフォルダ内に同名のセットがあります。');return}d.name=name;await saveDecks();renderAll();syncStudyQuizSelectors()}
+async function deleteDeck(id){let d=decks.find(x=>x.id===id);if(!d)return;let arr=itemsInDeck(id);if(!confirm(`「${d.name}」を削除しますか？\n中の${arr.length}件もすべて削除されます。`))return;for(const x of arr)await del('items',x.id);items=items.filter(x=>x.deckId!==id);decks=decks.filter(x=>x.id!==id);await saveDecks();if(currentDeck===id)currentDeck=decksInFolder(currentFolder)[0]?.id||null;renderAll();syncStudyQuizSelectors();renderStudy();newQuiz()}
+
 let importedImages=new Map();
-$('#pickImagesBtn').onclick=()=>$('#imageFiles').click();$('#imageFiles').onchange=async e=>{importedImages.clear();let fs=[...e.target.files];for(let f of fs)importedImages.set(f.name,await fileToDataURL(f));$('#imageFileStatus').textContent=`画像 ${fs.length}枚`}
+function openImport(id){let d=decks.find(x=>x.id===id);if(!d)return;importDeckId=id;$('#importTitle').textContent=`「${d.name}」にインポート`;$('#importText').value='';$('#importNotice').innerHTML='';importedImages.clear();$('#imageFiles').value='';$('#imageFileStatus').textContent='画像 0枚';config.types.forEach((v,i)=>$('#importType'+i).value=v);$('#importModal').classList.remove('hidden')}
+$('#pickImagesBtn').onclick=()=>$('#imageFiles').click();
+$('#imageFiles').onchange=async e=>{importedImages.clear();let fs=[...e.target.files];for(let f of fs)importedImages.set(f.name,await fileToDataURL(f));$('#imageFileStatus').textContent=`画像 ${fs.length}枚`}
 function parseRows(txt){let lines=txt.split(/\r?\n/).filter(v=>v.trim());return lines.map(line=>{if(line.includes('\t'))return line.split('\t').map(v=>v.trim());let out=[],cur='',q=false;for(let i=0;i<line.length;i++){let c=line[i];if(c==='"'){if(q&&line[i+1]==='"'){cur+='"';i++}else q=!q}else if(c===','&&!q){out.push(cur.trim());cur=''}else cur+=c}out.push(cur.trim());return out}).filter(r=>r.length>=3)}
-async function runImport(){let rows=parseRows($('#importText').value);if(!rows.length){showImport('読み込めるデータがありません。',false);return}let types=[0,1,2].map(i=>$('#importType'+i).value),folderVal=$('#importFolder').value,ok=0,miss=[];for(let r of rows){let vals=r.slice(0,3);for(let i=0;i<3;i++){if(types[i]==='image'&&vals[i]&&!/^data:image\//.test(vals[i])&&!/^https?:\/\//.test(vals[i])){if(importedImages.has(vals[i]))vals[i]=importedImages.get(vals[i]);else miss.push(vals[i])}}let obj={id:uid(),values:vals,folderId:folderVal==='none'?null:folderVal,star:false,learned:false,createdAt:Date.now(),updatedAt:Date.now()};await put('items',obj);items.unshift(obj);ok++}config.types=types;await saveConfig();syncSettingsUI();renderAll();newQuiz();showImport(`${ok}セットを追加しました。${miss.length?` 見つからなかった画像: ${[...new Set(miss)].slice(0,5).join(', ')}`:''}`,true)}
+async function runImport(){let d=decks.find(x=>x.id===importDeckId);if(!d)return;let rows=parseRows($('#importText').value);if(!rows.length){showImport('読み込めるデータがありません。',false);return}let types=[0,1,2].map(i=>$('#importType'+i).value),ok=0,miss=[];for(let r of rows){let vals=r.slice(0,3);for(let i=0;i<3;i++){if(types[i]==='image'&&vals[i]&&!/^data:image\//.test(vals[i])&&!/^https?:\/\//.test(vals[i])){if(importedImages.has(vals[i]))vals[i]=importedImages.get(vals[i]);else miss.push(vals[i])}}let obj={id:uid(),deckId:d.id,values:vals,star:false,learned:false,createdAt:Date.now(),updatedAt:Date.now()};await put('items',obj);items.unshift(obj);ok++}config.types=types;await saveConfig();syncSettingsUI();currentFolder=d.folderId;currentDeck=d.id;renderAll();syncStudyQuizSelectors();showImport(`${ok}件を「${d.name}」に追加しました。${miss.length?` 見つからなかった画像: ${[...new Set(miss)].slice(0,5).join(', ')}`:''}`,true)}
 function showImport(t,good=true){$('#importNotice').innerHTML=`<div class="notice ${good?'':'warn'}">${esc(t)}</div>`}
-async function createFolder(){let name=$('#newFolderName').value.trim();if(!name)return;if(folders.some(f=>f.name===name)){alert('同じ名前のフォルダがあります。');return}folders.push({id:uid(),name,createdAt:Date.now()});await saveFolders();$('#newFolderName').value='';renderAll()}
-async function renameFolder(id){let f=folders.find(x=>x.id===id);if(!f)return;let name=prompt('新しいフォルダ名',f.name)?.trim();if(!name||name===f.name)return;if(folders.some(x=>x.id!==id&&x.name===name)){alert('同じ名前のフォルダがあります。');return}f.name=name;await saveFolders();renderAll()}
-async function deleteFolder(id){let f=folders.find(x=>x.id===id);if(!f)return;let count=items.filter(x=>x.folderId===id).length;if(!confirm(`「${f.name}」を削除しますか？\n中の${count}セットは「未分類」に移動します。`))return;for(let x of items.filter(x=>x.folderId===id)){x.folderId=null;await put('items',x)}folders=folders.filter(x=>x.id!==id);if(currentFolder===id)currentFolder='all';await saveFolders();renderAll();newQuiz()}
-async function exportData(){let data={app:'Vocabstar Trio',version:3,config,folders,items};let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='vocabstar-trio-backup.json';a.click();URL.revokeObjectURL(a.href)}
-$$('.tab').forEach(t=>t.onclick=()=>{$$('.tab').forEach(x=>x.classList.remove('active'));t.classList.add('active');$$('.page').forEach(p=>p.classList.add('hidden'));$('#page-'+t.dataset.page).classList.remove('hidden');if(t.dataset.page==='study')renderStudy();if(t.dataset.page==='quiz')newQuiz()});
-$('#addBtn').onclick=()=>openEditor();$('#settingsBtn').onclick=()=>$('#settingsModal').classList.remove('hidden');$('#saveItem').onclick=saveEditor;$('#exportBtn').onclick=exportData;$('#addFolderBtn').onclick=()=>{$('#folderModal').classList.remove('hidden');setTimeout(()=>$('#newFolderName').focus(),50)};$('#manageFolderBtn').onclick=()=>$('#folderModal').classList.remove('hidden');$('#createFolder').onclick=createFolder;$('#newFolderName').onkeydown=e=>{if(e.key==='Enter')createFolder()};
-$$('[data-close]').forEach(b=>b.onclick=closeModals);$$('.modal').forEach(m=>m.onclick=e=>{if(e.target===m)closeModals()});
-$('#folderBar').onclick=e=>{let r=e.target.closest('[data-rename-folder]'),d=e.target.closest('[data-delete-folder]'),b=e.target.closest('[data-folder]');if(r){renameFolder(r.dataset.renameFolder);return}if(d){deleteFolder(d.dataset.deleteFolder);return}if(b)setCurrentFolder(b.dataset.folder)};
-$('#folderAutoViews').onclick=e=>{let b=e.target.closest('[data-folder]');if(b)setCurrentFolder(b.dataset.folder)};
-$('#folderSelect').onchange=e=>setCurrentFolder(e.target.value);
-$('#renameCurrentFolder').onclick=()=>{if(folders.some(f=>f.id===currentFolder))renameFolder(currentFolder)};
-$('#deleteCurrentFolder').onclick=()=>{if(folders.some(f=>f.id===currentFolder))deleteFolder(currentFolder)};
+
+function syncStudyQuizSelectors(){
+  const sf=$('#studyFolder'),qf=$('#quizFolder');let sfv=sf.value&&folders.some(f=>f.id===sf.value)?sf.value:(currentFolder||folders[0]?.id||''),qfv=qf.value&&folders.some(f=>f.id===qf.value)?qf.value:(currentFolder||folders[0]?.id||'');
+  sf.innerHTML=folderOptions(sfv);qf.innerHTML=folderOptions(qfv);sf.value=sfv;qf.value=qfv;
+  const sd=$('#studyDeck'),qd=$('#quizDeck');let sdv=sd.value&&decks.some(d=>d.id===sd.value&&d.folderId===sfv)?sd.value:(currentDeck&&decks.some(d=>d.id===currentDeck&&d.folderId===sfv)?currentDeck:decksInFolder(sfv)[0]?.id||''),qdv=qd.value&&decks.some(d=>d.id===qd.value&&d.folderId===qfv)?qd.value:(currentDeck&&decks.some(d=>d.id===currentDeck&&d.folderId===qfv)?currentDeck:decksInFolder(qfv)[0]?.id||'');
+  sd.innerHTML=deckOptions(sfv,sdv);qd.innerHTML=deckOptions(qfv,qdv);sd.value=sdv;qd.value=qdv;
+}
+function studyPool(){let id=$('#studyDeck').value;return itemsInDeck(id).filter(x=>!$('#studyStarOnly').checked||x.star)}
+function renderStudy(){let arr=studyPool(),a=$('#studyArea');if(!arr.length){a.innerHTML='<div class="empty">このセットには学習できる項目がありません。</div>';return}studyIndex=(studyIndex+arr.length)%arr.length;let x=arr[studyIndex];a.innerHTML=`<div class="row space"><div><span class="badge">${studyIndex+1} / ${arr.length}</span> <span class="badge">${esc(deckName(x.deckId))}</span></div><button class="iconbtn star ${x.star?'on':''}" data-study-star="${x.id}">★</button></div><div class="flashcard" style="margin-top:10px">${x.values.map((v,i)=>`<div class="face covered" data-reveal><span class="label">${esc(config.labels[i])}</span><div class="content ${config.types[i]==='text'?'big':''}">${mediaHTML(v,config.types[i])}</div></div>`).join('')}</div>`}
+function moveStudy(d){studyIndex+=d;renderStudy()}
+function sample(arr,n){return[...arr].sort(()=>Math.random()-.5).slice(0,n)}
+function quizPool(){let id=$('#quizDeck').value;return itemsInDeck(id).filter(x=>!$('#quizStarOnly').checked||x.star)}
+function newQuiz(){let pool=quizPool(),qa=$('#quizArea');if(pool.length<2){qa.innerHTML='<div class="empty">四択には同じセット内に2件以上必要です。</div>';quizState=null;return}let answer=pool[Math.floor(Math.random()*pool.length)],pairs=[];for(let p=0;p<3;p++)for(let a=0;a<3;a++)if(p!==a)pairs.push([p,a]);let[promptIdx,answerIdx]=pairs[Math.floor(Math.random()*pairs.length)],valid=pool.filter(x=>x.id!==answer.id&&x.values[answerIdx]&&x.values[answerIdx]!==answer.values[answerIdx]),count=Math.min(3,valid.length),choices=[answer,...sample(valid,count)].sort(()=>Math.random()-.5);quizState={answerId:answer.id,answerIdx,locked:false};qa.innerHTML=`<div class="quizprompt"><span class="badge">${esc(config.labels[promptIdx])} → ${esc(config.labels[answerIdx])}</span><div class="prompt-content">${mediaHTML(answer.values[promptIdx],config.types[promptIdx])}</div><div class="sub">正しい「${esc(config.labels[answerIdx])}」は？</div></div><div class="choices">${choices.map(x=>`<button class="choice" data-choice data-id="${x.id}">${mediaHTML(x.values[answerIdx],config.types[answerIdx])}</button>`).join('')}</div><div id="quizFeedback" style="margin-top:12px"></div>`}
+function answerQuiz(btn){if(!quizState||quizState.locked)return;quizState.locked=true;let correct=btn.dataset.id===quizState.answerId;btn.classList.add(correct?'correct':'wrong');$$('[data-choice]').forEach(b=>{if(b.dataset.id===quizState.answerId)b.classList.add('correct')});$('#quizFeedback').innerHTML=`<div class="notice ${correct?'':'warn'}">${correct?'正解！':'不正解。正解を緑で表示しました。'}</div>`;let x=items.find(v=>v.id===quizState.answerId);if(x){x.learned=true;put('items',x);renderDeckDetail()}}
+
+function closeModals(){$$('.modal').forEach(m=>m.classList.add('hidden'))}
+async function exportData(){let data={app:'Vocabstar Trio',version:4,config,folders,decks,items};let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='vocabstar-trio-backup.json';a.click();URL.revokeObjectURL(a.href)}
+
+$$('.tab').forEach(t=>t.onclick=()=>{$$('.tab').forEach(x=>x.classList.remove('active'));t.classList.add('active');$$('.page').forEach(p=>p.classList.add('hidden'));$('#page-'+t.dataset.page).classList.remove('hidden');if(t.dataset.page==='study'){syncStudyQuizSelectors();studyIndex=0;renderStudy()}if(t.dataset.page==='quiz'){syncStudyQuizSelectors();newQuiz()}});
+$('#settingsBtn').onclick=()=>$('#settingsModal').classList.remove('hidden');$('#exportBtn').onclick=exportData;$('#saveItem').onclick=saveEditor;
+$('#addFolderBtn').onclick=()=>{$('#folderModal').classList.remove('hidden');setTimeout(()=>$('#newFolderName').focus(),50)};$('#manageFolderBtn').onclick=()=>$('#folderModal').classList.remove('hidden');$('#createFolder').onclick=createFolder;$('#newFolderName').onkeydown=e=>{if(e.key==='Enter')createFolder()};
+$('#addDeckBtn').onclick=openDeckModal;$('#createDeck').onclick=createDeck;$('#newDeckName').onkeydown=e=>{if(e.key==='Enter')createDeck()};
+$('#folderSelect').onchange=e=>setCurrentFolder(e.target.value);$('#renameCurrentFolder').onclick=()=>currentFolder&&renameFolder(currentFolder);$('#deleteCurrentFolder').onclick=()=>currentFolder&&deleteFolder(currentFolder);
+$('#folderBar').onclick=e=>{let r=e.target.closest('[data-rename-folder]'),d=e.target.closest('[data-delete-folder]'),b=e.target.closest('[data-folder]');if(r)return renameFolder(r.dataset.renameFolder);if(d)return deleteFolder(d.dataset.deleteFolder);if(b)setCurrentFolder(b.dataset.folder)};
 $('#folderManageList').onclick=e=>{let r=e.target.closest('[data-rename-folder]'),d=e.target.closest('[data-delete-folder]');if(r)renameFolder(r.dataset.renameFolder);if(d)deleteFolder(d.dataset.deleteFolder)};
-$('#searchInput').oninput=renderLibrary;$('#starOnly').onchange=renderLibrary;$('#studyStarOnly').onchange=()=>{studyIndex=0;renderStudy()};$('#quizStarOnly').onchange=newQuiz;$('#studyFolder').onchange=()=>{studyIndex=0;renderStudy()};$('#quizFolder').onchange=newQuiz;
-$('#prevStudy').onclick=()=>moveStudy(-1);$('#nextStudy').onclick=()=>moveStudy(1);$('#nextQuiz').onclick=newQuiz;
-$('#bulkModeBtn').onclick=()=>{bulkMode=!bulkMode;selectedIds.clear();renderLibrary()};$('#cancelBulk').onclick=()=>{bulkMode=false;selectedIds.clear();renderLibrary()};$('#deleteSelected').onclick=deleteSelected;
+$('#deckList').onclick=e=>{let o=e.target.closest('[data-open-deck]'),i=e.target.closest('[data-import-deck]'),r=e.target.closest('[data-rename-deck]'),d=e.target.closest('[data-delete-deck]');if(o)return setCurrentDeck(o.dataset.openDeck);if(i)return openImport(i.dataset.importDeck);if(r)return renameDeck(r.dataset.renameDeck);if(d)return deleteDeck(d.dataset.deleteDeck)};
+$('#addItemBtn').onclick=()=>openEditor();$('#importDeckBtn').onclick=()=>currentDeck&&openImport(currentDeck);$('#runImport').onclick=runImport;
+$('#searchInput').oninput=renderLibrary;$('#starOnly').onchange=renderLibrary;$('#bulkModeBtn').onclick=()=>{bulkMode=!bulkMode;selectedIds.clear();renderLibrary()};$('#cancelBulk').onclick=()=>{bulkMode=false;selectedIds.clear();renderLibrary()};$('#deleteSelected').onclick=deleteSelected;
 $('#cardList').onclick=e=>{let s=e.target.closest('[data-star]'),ed=e.target.closest('[data-edit]'),d=e.target.closest('[data-delete]'),sel=e.target.closest('[data-select]');if(sel){sel.checked?selectedIds.add(sel.dataset.select):selectedIds.delete(sel.dataset.select);$('#selectedCount').textContent=selectedIds.size;return}if(s)toggleStar(s.dataset.star);if(ed)openEditor(ed.dataset.edit);if(d)deleteItem(d.dataset.delete)};
-$('#studyArea').onclick=e=>{let f=e.target.closest('[data-reveal]');if(f)f.classList.remove('covered');let s=e.target.closest('[data-study-star]');if(s)toggleStar(s.dataset.studyStar).then(renderStudy)};$('#quizArea').onclick=e=>{let b=e.target.closest('[data-choice]');if(b)answerQuiz(b)};$('#runImport').onclick=runImport;
-$('#saveSettings').onclick=async()=>{config.title=$('#settingTitle').value.trim()||'Vocabstar Trio';config.labels=[0,1,2].map(i=>$('#label'+i).value.trim()||`項目${i+1}`);config.types=[0,1,2].map(i=>$('#type'+i).value);await saveConfig();syncSettingsUI();closeModals();renderAll();newQuiz()};
+$('#studyArea').onclick=e=>{let f=e.target.closest('[data-reveal]');if(f)f.classList.remove('covered');let s=e.target.closest('[data-study-star]');if(s)toggleStar(s.dataset.studyStar).then(renderStudy)};$('#quizArea').onclick=e=>{let b=e.target.closest('[data-choice]');if(b)answerQuiz(b)};
+$('#prevStudy').onclick=()=>moveStudy(-1);$('#nextStudy').onclick=()=>moveStudy(1);$('#nextQuiz').onclick=newQuiz;$('#studyStarOnly').onchange=()=>{studyIndex=0;renderStudy()};$('#quizStarOnly').onchange=newQuiz;
+$('#studyFolder').onchange=e=>{$('#studyDeck').innerHTML=deckOptions(e.target.value,decksInFolder(e.target.value)[0]?.id||'');studyIndex=0;renderStudy()};$('#studyDeck').onchange=()=>{studyIndex=0;renderStudy()};$('#quizFolder').onchange=e=>{$('#quizDeck').innerHTML=deckOptions(e.target.value,decksInFolder(e.target.value)[0]?.id||'');newQuiz()};$('#quizDeck').onchange=newQuiz;
+$('#saveSettings').onclick=async()=>{config.title=$('#settingTitle').value.trim()||'Vocabstar Trio';config.labels=[0,1,2].map(i=>$('#label'+i).value.trim()||`項目${i+1}`);config.types=[0,1,2].map(i=>$('#type'+i).value);await saveConfig();syncSettingsUI();closeModals();renderAll();renderStudy();newQuiz()};
+$$('[data-close]').forEach(b=>b.onclick=closeModals);$$('.modal').forEach(m=>m.onclick=e=>{if(e.target===m)closeModals()});
 init().catch(err=>{console.error(err);alert('データベースの初期化に失敗しました。Safariのプライベートブラウズ等では保存できない場合があります。')});
 </script>
 </body>
