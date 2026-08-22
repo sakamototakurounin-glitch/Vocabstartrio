@@ -22,7 +22,7 @@ body{min-height:100vh}button,input,select,textarea{font:inherit}button{cursor:po
 .panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:18px;margin-bottom:16px}.panel h2{margin:0 0 14px;font-size:18px}.sub{color:var(--muted);font-size:13px;line-height:1.6}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.grid.two{grid-template-columns:repeat(2,1fr)}.field label{display:block;font-size:12px;font-weight:800;color:var(--muted);margin:0 0 6px}.field input,.field select,.field textarea{width:100%;border:1px solid var(--line);background:#fff;border-radius:12px;padding:11px 12px;outline:none}.field textarea{min-height:110px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus{border-color:#aaaef9;box-shadow:0 0 0 3px rgba(91,92,240,.10)}
 .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.row.end{justify-content:flex-end}.space{justify-content:space-between}.statrow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}.stat{border:1px solid var(--line);border-radius:14px;padding:13px;background:#fbfbfe}.stat b{display:block;font-size:22px}.stat span{font-size:12px;color:var(--muted)}
-.folderbar{display:flex;gap:8px;overflow:auto;padding:2px 0 12px;align-items:center}.folderchip{border:1px solid var(--line);background:#fff;padding:8px 12px;border-radius:999px;font-weight:800;font-size:13px;white-space:nowrap}.folderchip.active{background:var(--accent);border-color:var(--accent);color:#fff}.folder-badge{display:inline-flex;align-items:center;gap:4px;padding:4px 8px;border-radius:999px;background:#f1f3f8;color:#596274;font-size:10px;font-weight:800;margin-bottom:7px}
+.library-grid{display:grid;grid-template-columns:280px minmax(0,1fr);gap:14px;align-items:start}.library-main{min-width:0}.folder-panel{position:sticky;top:10px}.sectionTitle{font-weight:900;margin:0 0 8px}.folderSelectRow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px}.folderSelectRow select{width:100%;border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px;font-weight:800;min-width:0}.folder-current-actions{display:flex;justify-content:flex-end;gap:3px;margin-top:5px}.folderTextBtn{border:0;background:transparent;color:var(--muted);font-size:12px;padding:5px 6px;border-radius:8px}.folderTextBtn:hover{background:#f3f4f6}.folderTextBtn.danger{color:var(--danger)}.folder-subhead{display:flex;align-items:center;justify-content:space-between;margin-top:13px}.folderScroller{display:flex;flex-direction:column;gap:7px;margin-top:7px}.folderWrap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px;align-items:center;border:1px solid var(--line);background:#fff;border-radius:10px;padding:4px}.folderWrap.active{border-color:var(--accent);background:var(--soft)}.folderListBtn{width:100%;text-align:left;border:0;background:transparent;border-radius:8px;padding:7px 6px;min-width:0}.folderListTitle{font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.folderListMeta{font-size:11px;color:var(--muted);margin-top:2px}.folderListActions{display:flex;gap:1px}.folderListActions button{border:0;background:transparent;color:var(--muted);font-size:12px;padding:5px 6px;border-radius:7px}.folderListActions button:hover{background:#fff}.folderAutoViews{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:9px;padding-top:9px;border-top:1px solid var(--line)}.folderAutoBtn{border:1px solid var(--line);background:#fafbff;border-radius:10px;padding:8px 7px;text-align:left;font-size:12px}.folderAutoBtn.active{border-color:var(--accent);background:var(--soft);color:var(--accent2)}.folderAutoBtn b{display:block;font-size:12px}.folder-badge{display:inline-flex;align-items:center;gap:4px;padding:4px 8px;border-radius:999px;background:#f1f3f8;color:#596274;font-size:10px;font-weight:800;margin-bottom:7px}.selected-folder-head{display:flex;align-items:flex-end;justify-content:space-between;gap:8px;margin-bottom:12px}.selected-folder-head h2{margin:0;font-size:20px}.selected-folder-head .sub{margin-top:3px}
 .searchbar{display:flex;gap:8px;margin-bottom:12px}.searchbar input{flex:1;border:1px solid var(--line);border-radius:12px;padding:11px 12px}.bulkbar{display:flex;align-items:center;justify-content:space-between;gap:8px;background:#fff4f4;border:1px solid #f1cccc;border-radius:14px;padding:10px 12px;margin-top:12px}
 .card-list{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.item{border:1px solid var(--line);border-radius:16px;padding:14px;background:#fff;display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:start}.item.starred{border-color:#f0c44b;background:#fffdf5}.item-main{min-width:0}.selectbox{padding-top:4px}.selectbox input{width:20px;height:20px}.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.cell{min-height:88px;background:#f8f9fc;border-radius:12px;padding:9px;display:flex;align-items:center;justify-content:center;text-align:center;word-break:break-word;font-weight:700}.cell img{width:100%;height:96px;object-fit:contain;border-radius:8px}.label{display:block;font-size:10px;color:var(--muted);font-weight:800;margin-bottom:4px}.tools{display:flex;flex-direction:column;gap:6px}.iconbtn{border:0;background:#f3f4f8;width:36px;height:36px;border-radius:10px;font-size:17px;display:grid;place-items:center}.iconbtn.star.on{background:#fff3c4;color:#b17a00}.iconbtn.delete{background:#fff0f0;color:#b53a3a}.empty{text-align:center;padding:36px 12px;color:var(--muted)}
 .badge{display:inline-block;padding:5px 9px;border-radius:999px;background:var(--soft);color:var(--accent2);font-size:11px;font-weight:800}.hidden{display:none!important}.import-box{border:1.5px dashed #cfd3de;background:#fafbff;border-radius:16px;padding:16px}.codehint{background:#111827;color:#e8ecf5;border-radius:12px;padding:12px;font:12px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace;overflow:auto;white-space:pre-wrap}
@@ -30,7 +30,7 @@ body{min-height:100vh}button,input,select,textarea{font:inherit}button{cursor:po
 .quizprompt{text-align:center;padding:18px}.quizprompt .prompt-content{font-size:28px;font-weight:900;margin:14px 0}.quizprompt img{max-height:160px;max-width:80%;object-fit:contain}.choices{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.choice{border:1px solid var(--line);background:#fff;border-radius:14px;padding:16px;font-weight:800;min-height:64px}.choice.correct{border-color:#62b88b;background:#effaf4;color:#1b6b44}.choice.wrong{border-color:#e28d8d;background:#fff1f1;color:#9d2f2f}.notice{padding:11px 13px;border-radius:12px;background:#eef8f2;color:#25714a;font-size:13px;font-weight:700}.notice.warn{background:#fff7e8;color:#906420}
 .modal{position:fixed;inset:0;background:rgba(15,20,30,.45);display:flex;align-items:flex-end;justify-content:center;padding:12px;z-index:20}.sheet{width:min(720px,100%);max-height:92vh;overflow:auto;background:#fff;border-radius:22px;padding:19px;box-shadow:0 20px 60px rgba(0,0,0,.24)}.sheet h3{margin:0 0 14px}.sheet-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}.folder-row{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
 footer{text-align:center;color:#9aa2b3;font-size:12px;padding:20px}
-@media(max-width:780px){.grid,.grid.two,.statrow{grid-template-columns:1fr 1fr}.card-list{grid-template-columns:1fr}.flashcard{grid-template-columns:1fr;min-height:auto}.face{min-height:170px}.topbar{align-items:flex-start}.trio{grid-template-columns:1fr 1fr 1fr}.cell{font-size:13px}.cell img{height:72px}}
+@media(max-width:780px){.library-grid{display:block}.folder-panel{position:static;margin-bottom:14px}.folderScroller{flex-direction:row;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding-bottom:3px}.folderScroller::-webkit-scrollbar{display:none}.folderWrap{min-width:165px;max-width:220px;flex:0 0 auto}.grid,.grid.two,.statrow{grid-template-columns:1fr 1fr}.card-list{grid-template-columns:1fr}.flashcard{grid-template-columns:1fr;min-height:auto}.face{min-height:170px}.topbar{align-items:flex-start}.trio{grid-template-columns:1fr 1fr 1fr}.cell{font-size:13px}.cell img{height:72px}}
 @media(max-width:520px){.grid,.grid.two,.statrow{grid-template-columns:1fr}.hero{padding:20px}.trio{grid-template-columns:1fr}.cell{min-height:64px}.cell img{height:95px}.choices{grid-template-columns:1fr}.item{grid-template-columns:auto 1fr}.tools{grid-column:2;flex-direction:row;justify-content:flex-end}.bulkbar{align-items:flex-start;flex-direction:column}.searchbar{flex-wrap:wrap}.searchbar input{flex-basis:100%}}
 </style>
 </head>
@@ -48,17 +48,38 @@ footer{text-align:center;color:#9aa2b3;font-size:12px;padding:20px}
   </nav>
 
   <main id="page-library" class="page">
-    <section class="panel">
-      <div class="statrow">
-        <div class="stat"><b id="countAll">0</b><span>登録セット</span></div><div class="stat"><b id="countStar">0</b><span>★</span></div><div class="stat"><b id="countImage">0</b><span>画像つき</span></div><div class="stat"><b id="countLearned">0</b><span>学習済み</span></div>
+    <div class="library-grid">
+      <aside class="panel folder-panel">
+        <div class="sectionTitle">フォルダ</div>
+        <div class="folderSelectRow">
+          <select id="folderSelect" aria-label="フォルダを選択"></select>
+          <button class="btn small primary" id="addFolderBtn">＋</button>
+        </div>
+        <div class="folder-current-actions">
+          <button class="folderTextBtn" id="renameCurrentFolder">名前変更</button>
+          <button class="folderTextBtn danger" id="deleteCurrentFolder">削除</button>
+        </div>
+        <div class="folder-subhead"><b>フォルダ一覧</b><button class="btn small" id="manageFolderBtn">管理</button></div>
+        <div class="folderScroller" id="folderBar"></div>
+        <div class="folderAutoViews" id="folderAutoViews">
+          <button class="folderAutoBtn" data-folder="all"><b>すべて</b><span id="folderAllCount">0セット</span></button>
+          <button class="folderAutoBtn" data-folder="none"><b>未分類</b><span id="folderNoneCount">0セット</span></button>
+        </div>
+      </aside>
+
+      <div class="library-main">
+        <section class="panel">
+          <div class="selected-folder-head"><div><h2 id="selectedFolderTitle">すべて</h2><div class="sub" id="selectedFolderMeta">全フォルダのセットを表示</div></div><button class="btn primary" id="addBtn">＋ 追加</button></div>
+          <div class="statrow">
+            <div class="stat"><b id="countAll">0</b><span>登録セット</span></div><div class="stat"><b id="countStar">0</b><span>★</span></div><div class="stat"><b id="countImage">0</b><span>画像つき</span></div><div class="stat"><b id="countLearned">0</b><span>学習済み</span></div>
+          </div>
+          <div class="searchbar"><input id="searchInput" placeholder="3項目のどこからでも検索"><button class="btn" id="bulkModeBtn">選択削除</button></div>
+          <div class="row space"><span class="sub" id="schemaText"></span><label class="sub"><input type="checkbox" id="starOnly"> ★のみ</label></div>
+          <div id="bulkBar" class="bulkbar hidden"><span><b id="selectedCount">0</b>件を選択中</span><div class="row"><button class="btn small" id="cancelBulk">キャンセル</button><button class="btn small danger solid" id="deleteSelected">選択したセットを削除</button></div></div>
+        </section>
+        <section class="card-list" id="cardList"></section>
       </div>
-      <div class="row space" style="margin-bottom:8px"><strong>フォルダ</strong><div class="row"><button class="btn small" id="addFolderBtn">＋ フォルダ</button><button class="btn small" id="manageFolderBtn">管理</button></div></div>
-      <div class="folderbar" id="folderBar"></div>
-      <div class="searchbar"><input id="searchInput" placeholder="3項目のどこからでも検索"><button class="btn" id="bulkModeBtn">選択削除</button><button class="btn primary" id="addBtn">＋ 追加</button></div>
-      <div class="row space"><span class="sub" id="schemaText"></span><label class="sub"><input type="checkbox" id="starOnly"> ★のみ</label></div>
-      <div id="bulkBar" class="bulkbar hidden"><span><b id="selectedCount">0</b>件を選択中</span><div class="row"><button class="btn small" id="cancelBulk">キャンセル</button><button class="btn small danger solid" id="deleteSelected">選択したセットを削除</button></div></div>
-    </section>
-    <section class="card-list" id="cardList"></section>
+    </div>
   </main>
 
   <main id="page-study" class="page hidden">
@@ -120,16 +141,27 @@ function folderOptions(selected='',includeAll=false){let h=includeAll?'<option v
 async function init(){await openDB();config=await getMeta('config')||config;folders=await getMeta('folders')||[];items=await getAll('items');syncSettingsUI();renderAll();newQuiz()}
 function syncSettingsUI(){$('#deckTitle').textContent=config.title;$('#settingTitle').value=config.title;config.labels.forEach((v,i)=>$('#label'+i).value=v);config.types.forEach((v,i)=>{$('#type'+i).value=v;$('#importType'+i).value=v});renderFolderControls()}
 function renderFolderControls(){
-  $('#folderBar').innerHTML=`<button class="folderchip ${currentFolder==='all'?'active':''}" data-folder="all">すべて</button><button class="folderchip ${currentFolder==='none'?'active':''}" data-folder="none">未分類</button>${folders.map(f=>`<button class="folderchip ${currentFolder===f.id?'active':''}" data-folder="${esc(f.id)}">${esc(f.name)}</button>`).join('')}`;
+  const folderSelect=$('#folderSelect');
+  folderSelect.innerHTML=folderOptions(currentFolder,true);
+  folderSelect.value=currentFolder;
+  $('#folderBar').innerHTML=folders.length?folders.map(f=>{let count=items.filter(x=>x.folderId===f.id).length;return `<div class="folderWrap ${currentFolder===f.id?'active':''}"><button class="folderListBtn" data-folder="${esc(f.id)}"><div class="folderListTitle">${esc(f.name)}</div><div class="folderListMeta">${count}セット</div></button><div class="folderListActions"><button data-rename-folder="${esc(f.id)}" title="名前変更">✎</button><button data-delete-folder="${esc(f.id)}" title="削除">×</button></div></div>`}).join(''):'<div class="sub" style="padding:9px 2px">まだフォルダがありません。</div>';
+  $('#folderAllCount').textContent=`${items.length}セット`;
+  $('#folderNoneCount').textContent=`${items.filter(x=>!x.folderId).length}セット`;
+  $$('#folderAutoViews [data-folder]').forEach(b=>b.classList.toggle('active',b.dataset.folder===currentFolder));
+  const real=folders.find(f=>f.id===currentFolder);
+  $('#renameCurrentFolder').disabled=!real;$('#deleteCurrentFolder').disabled=!real;
+  $('#renameCurrentFolder').style.opacity=real?'1':'.35';$('#deleteCurrentFolder').style.opacity=real?'1':'.35';
   let studyVal=$('#studyFolder')?.value||'all',quizVal=$('#quizFolder')?.value||'all';
   $('#studyFolder').innerHTML=folderOptions(studyVal,true);$('#quizFolder').innerHTML=folderOptions(quizVal,true);$('#importFolder').innerHTML=folderOptions($('#importFolder').value||'none',false);$('#editFolder').innerHTML=folderOptions($('#editFolder').value||'none',false);
   renderFolderManager();
 }
+function setCurrentFolder(id){currentFolder=id;selectedIds.clear();renderAll()}
 function renderFolderManager(){let el=$('#folderManageList');if(!el)return;if(!folders.length){el.innerHTML='<div class="empty">まだフォルダがありません。</div>';return}el.innerHTML=folders.map(f=>`<div class="folder-row"><div><b>${esc(f.name)}</b><div class="sub">${items.filter(x=>x.folderId===f.id).length}セット</div></div><button class="btn small" data-rename-folder="${esc(f.id)}">名前変更</button><button class="btn small danger" data-delete-folder="${esc(f.id)}">削除</button></div>`).join('')}
 function renderAll(){renderFolderControls();renderLibrary();renderStudy();$('#schemaText').textContent=config.labels.join(' ・ ')}
 function filteredItems(starOnly=false){let q=$('#searchInput')?.value?.trim().toLowerCase()||'';return items.filter(x=>folderMatch(x,currentFolder)&&(!starOnly||x.star)&&(!q||x.values.some(v=>textFor(v).toLowerCase().includes(q))))}
 function renderLibrary(){
   let arr=filteredItems($('#starOnly').checked);$('#countAll').textContent=items.length;$('#countStar').textContent=items.filter(x=>x.star).length;$('#countImage').textContent=items.filter(x=>config.types.some((t,i)=>t==='image'&&x.values[i])).length;$('#countLearned').textContent=items.filter(x=>x.learned).length;$('#selectedCount').textContent=selectedIds.size;$('#bulkBar').classList.toggle('hidden',!bulkMode);$('#bulkModeBtn').textContent=bulkMode?'選択中':'選択削除';
+  let title=currentFolder==='all'?'すべて':currentFolder==='none'?'未分類':folderName(currentFolder),scopeCount=items.filter(x=>folderMatch(x,currentFolder)).length;$('#selectedFolderTitle').textContent=title;$('#selectedFolderMeta').textContent=currentFolder==='all'?`全フォルダ・${scopeCount}セット`:`${scopeCount}セット`;
   const list=$('#cardList');if(!arr.length){list.innerHTML='<div class="panel empty">このフォルダにはセットがありません。<br>「＋ 追加」か「インポート」から登録できます。</div>';return}
   list.innerHTML=arr.map(x=>`<article class="item ${x.star?'starred':''}">${bulkMode?`<div class="selectbox"><input type="checkbox" data-select="${x.id}" ${selectedIds.has(x.id)?'checked':''}></div>`:'<div></div>'}<div class="item-main"><span class="folder-badge">📁 ${esc(folderName(x.folderId))}</span><div class="trio">${x.values.map((v,i)=>`<div><span class="label">${esc(config.labels[i])}</span><div class="cell">${mediaHTML(v,config.types[i])}</div></div>`).join('')}</div></div><div class="tools"><button class="iconbtn star ${x.star?'on':''}" data-star="${x.id}" title="★">★</button><button class="iconbtn" data-edit="${x.id}" title="編集">✎</button><button class="iconbtn delete" data-delete="${x.id}" title="削除">🗑</button></div></article>`).join('')
 }
@@ -154,11 +186,15 @@ function showImport(t,good=true){$('#importNotice').innerHTML=`<div class="notic
 async function createFolder(){let name=$('#newFolderName').value.trim();if(!name)return;if(folders.some(f=>f.name===name)){alert('同じ名前のフォルダがあります。');return}folders.push({id:uid(),name,createdAt:Date.now()});await saveFolders();$('#newFolderName').value='';renderAll()}
 async function renameFolder(id){let f=folders.find(x=>x.id===id);if(!f)return;let name=prompt('新しいフォルダ名',f.name)?.trim();if(!name||name===f.name)return;if(folders.some(x=>x.id!==id&&x.name===name)){alert('同じ名前のフォルダがあります。');return}f.name=name;await saveFolders();renderAll()}
 async function deleteFolder(id){let f=folders.find(x=>x.id===id);if(!f)return;let count=items.filter(x=>x.folderId===id).length;if(!confirm(`「${f.name}」を削除しますか？\n中の${count}セットは「未分類」に移動します。`))return;for(let x of items.filter(x=>x.folderId===id)){x.folderId=null;await put('items',x)}folders=folders.filter(x=>x.id!==id);if(currentFolder===id)currentFolder='all';await saveFolders();renderAll();newQuiz()}
-async function exportData(){let data={app:'Vocabstar Trio',version:2,config,folders,items};let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='vocabstar-trio-backup.json';a.click();URL.revokeObjectURL(a.href)}
+async function exportData(){let data={app:'Vocabstar Trio',version:3,config,folders,items};let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='vocabstar-trio-backup.json';a.click();URL.revokeObjectURL(a.href)}
 $$('.tab').forEach(t=>t.onclick=()=>{$$('.tab').forEach(x=>x.classList.remove('active'));t.classList.add('active');$$('.page').forEach(p=>p.classList.add('hidden'));$('#page-'+t.dataset.page).classList.remove('hidden');if(t.dataset.page==='study')renderStudy();if(t.dataset.page==='quiz')newQuiz()});
 $('#addBtn').onclick=()=>openEditor();$('#settingsBtn').onclick=()=>$('#settingsModal').classList.remove('hidden');$('#saveItem').onclick=saveEditor;$('#exportBtn').onclick=exportData;$('#addFolderBtn').onclick=()=>{$('#folderModal').classList.remove('hidden');setTimeout(()=>$('#newFolderName').focus(),50)};$('#manageFolderBtn').onclick=()=>$('#folderModal').classList.remove('hidden');$('#createFolder').onclick=createFolder;$('#newFolderName').onkeydown=e=>{if(e.key==='Enter')createFolder()};
 $$('[data-close]').forEach(b=>b.onclick=closeModals);$$('.modal').forEach(m=>m.onclick=e=>{if(e.target===m)closeModals()});
-$('#folderBar').onclick=e=>{let b=e.target.closest('[data-folder]');if(!b)return;currentFolder=b.dataset.folder;selectedIds.clear();renderAll()};
+$('#folderBar').onclick=e=>{let r=e.target.closest('[data-rename-folder]'),d=e.target.closest('[data-delete-folder]'),b=e.target.closest('[data-folder]');if(r){renameFolder(r.dataset.renameFolder);return}if(d){deleteFolder(d.dataset.deleteFolder);return}if(b)setCurrentFolder(b.dataset.folder)};
+$('#folderAutoViews').onclick=e=>{let b=e.target.closest('[data-folder]');if(b)setCurrentFolder(b.dataset.folder)};
+$('#folderSelect').onchange=e=>setCurrentFolder(e.target.value);
+$('#renameCurrentFolder').onclick=()=>{if(folders.some(f=>f.id===currentFolder))renameFolder(currentFolder)};
+$('#deleteCurrentFolder').onclick=()=>{if(folders.some(f=>f.id===currentFolder))deleteFolder(currentFolder)};
 $('#folderManageList').onclick=e=>{let r=e.target.closest('[data-rename-folder]'),d=e.target.closest('[data-delete-folder]');if(r)renameFolder(r.dataset.renameFolder);if(d)deleteFolder(d.dataset.deleteFolder)};
 $('#searchInput').oninput=renderLibrary;$('#starOnly').onchange=renderLibrary;$('#studyStarOnly').onchange=()=>{studyIndex=0;renderStudy()};$('#quizStarOnly').onchange=newQuiz;$('#studyFolder').onchange=()=>{studyIndex=0;renderStudy()};$('#quizFolder').onchange=newQuiz;
 $('#prevStudy').onclick=()=>moveStudy(-1);$('#nextStudy').onclick=()=>moveStudy(1);$('#nextQuiz').onclick=newQuiz;
