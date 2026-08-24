@@ -273,7 +273,7 @@ footer{text-align:center;color:#9aa2b3;font-size:12px;padding:20px}
 
           <div class="classic-action-grid">
             <button class="btn" id="classicImportBtn">インポート</button>
-            <button class="btn" id="classicStudyBtn">カード</button>
+            <button class="btn" id="classicStudyBtn">学習</button>
             <button class="btn primary" id="classicQuizBtn">4択</button>
           </div>
 
@@ -308,7 +308,7 @@ footer{text-align:center;color:#9aa2b3;font-size:12px;padding:20px}
     <section class="panel">
       <div class="row space study-head">
         <div>
-          <h2 style="margin:0">カード</h2>
+          <h2 style="margin:0">学習</h2>
           <div class="sub" id="studyDeckName">表示中のセットで学習します。</div>
         </div>
         <button class="btn danger hidden" id="finishStudyBtn">終了</button>
@@ -318,7 +318,7 @@ footer{text-align:center;color:#9aa2b3;font-size:12px;padding:20px}
         <div class="study-setup-title">最初から表示する項目を1つ選択</div>
         <div class="study-visible-choices" id="studyVisibleChoices"></div>
         <label class="study-star-only"><input type="checkbox" id="studyStarOnly"> ★付きだけ</label>
-        <button class="btn primary study-start-btn" id="startStudyBtn">カードを開始</button>
+        <button class="btn primary study-start-btn" id="startStudyBtn">学習を開始</button>
       </div>
 
       <div id="studySession" class="hidden">
@@ -482,6 +482,14 @@ $('#imageFiles').onchange=async e=>{importedImages.clear();let fs=[...e.target.f
 function parseRows(txt){let lines=txt.split(/\r?\n/).filter(v=>v.trim());return lines.map(line=>{if(line.includes('\t'))return line.split('\t').map(v=>v.trim());let out=[],cur='',q=false;for(let i=0;i<line.length;i++){let c=line[i];if(c==='"'){if(q&&line[i+1]==='"'){cur+='"';i++}else q=!q}else if(c===','&&!q){out.push(cur.trim());cur=''}else cur+=c}out.push(cur.trim());return out}).filter(r=>r.length>=3)}
 async function runImport(){let d=decks.find(x=>x.id===importDeckId);if(!d)return;let rows=parseRows($('#importText').value);if(!rows.length){showImport('読み込めるデータがありません。',false);return}let types=[0,1,2].map(i=>$('#importType'+i).value),ok=0,miss=[];for(let r of rows){let vals=r.slice(0,3);for(let i=0;i<3;i++){if(types[i]==='image'&&vals[i]&&!/^data:image\//.test(vals[i])&&!/^https?:\/\//.test(vals[i])){if(importedImages.has(vals[i]))vals[i]=importedImages.get(vals[i]);else miss.push(vals[i])}}let obj={id:uid(),deckId:d.id,values:vals,star:false,learned:false,createdAt:Date.now(),updatedAt:Date.now()};await put('items',obj);items.unshift(obj);ok++}config.types=types;await saveConfig();syncSettingsUI();currentFolder=d.folderId;currentDeck=d.id;renderAll();syncStudyQuizSelectors();showImport(`${ok}件を「${d.name}」に追加しました。${miss.length?` 見つからなかった画像: ${[...new Set(miss)].slice(0,5).join(', ')}`:''}`,true)}
 function showImport(t,good=true){$('#importNotice').innerHTML=`<div class="notice ${good?'':'warn'}">${esc(t)}</div>`}
+
+
+function goHome(){
+  $$('.tab').forEach(x=>x.classList.toggle('active',x.dataset.page==='library'));
+  $$('.page').forEach(p=>p.classList.add('hidden'));
+  $('#page-library').classList.remove('hidden');
+  renderAll();
+}
 
 function syncStudyQuizSelectors(){
   const sf=$('#studyFolder'),qf=$('#quizFolder');let sfv=sf.value&&folders.some(f=>f.id===sf.value)?sf.value:(currentFolder||folders[0]?.id||''),qfv=qf.value&&folders.some(f=>f.id===qf.value)?qf.value:(currentFolder||folders[0]?.id||'');
@@ -676,7 +684,10 @@ async function runImport(){
   syncSettingsUI(d.id);
   currentFolder=d.folderId;currentDeck=d.id;
   renderAll();prepareStudy();newQuiz();
-  showImport(`${ok}件を「${d.name}」に追加しました。${miss.length?` 見つからなかった画像: ${[...new Set(miss)].slice(0,5).join(', ')}`:''}`,true);
+  const importMessage=`${ok}件を「${d.name}」に追加しました。${miss.length?` 見つからなかった画像: ${[...new Set(miss)].slice(0,5).join(', ')}`:''}`;
+  closeModals();
+  goHome();
+  setTimeout(()=>alert(importMessage),50);
 }
 
 function syncStudyQuizSelectors(){
@@ -762,16 +773,19 @@ function finishStudySession(manual=true){
   const remaining=Math.max(0,studySession.queue.length-total);
   $('#studySummary').classList.remove('hidden');
   $('#studySummary').innerHTML=`<div class="study-summary">
-    <h3>${manual?'カードを終了しました':'このセットのカードが終了しました'}</h3>
+    <h3>${manual?'学習を終了しました':'このセットの学習が終了しました'}</h3>
     <div class="sub">${esc(deckName(studySession.deckId))}</div>
     <div class="study-summary-counts">
       <div class="study-summary-count"><b>${studySession.known.length}</b><span>分かった</span></div>
       <div class="study-summary-count"><b>${studySession.unknown.length}</b><span>分からない</span></div>
     </div>
     ${remaining?`<div class="sub">未回答 ${remaining}件</div>`:''}
-    <div class="row" style="justify-content:center;margin-top:14px"><button class="btn primary" id="restartStudyBtn">もう一度</button></div>
+    <div class="row" style="justify-content:center;margin-top:14px">
+      <button class="btn" id="studyHomeBtn">ホームに戻る</button>
+      <button class="btn primary" id="restartStudyBtn">もう一度</button>
+    </div>
   </div>`;
-  $('#restartStudyBtn').onclick=prepareStudy;
+  $('#studyHomeBtn').onclick=goHome;$('#restartStudyBtn').onclick=prepareStudy;
 }
 
 function quizPool(){
@@ -803,7 +817,7 @@ function newQuiz(){
 }
 
 function closeModals(){$$('.modal').forEach(m=>m.classList.add('hidden'))}
-async function exportData(){let data={app:'Vocabstar Trio',version:5,config,folders,decks,items};let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='vocabstar-trio-backup.json';a.click();URL.revokeObjectURL(a.href)}
+async function exportData(){let data={app:'Vocabstar Trio',version:6,config,folders,decks,items};let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='vocabstar-trio-backup.json';a.click();URL.revokeObjectURL(a.href)}
 
 $$('.tab').forEach(t=>t.onclick=()=>{$$('.tab').forEach(x=>x.classList.remove('active'));t.classList.add('active');$$('.page').forEach(p=>p.classList.add('hidden'));$('#page-'+t.dataset.page).classList.remove('hidden');if(t.dataset.page==='study')prepareStudy();if(t.dataset.page==='quiz')newQuiz()});
 $('#exportBtn').onclick=exportData;$('#saveItem').onclick=saveEditor;
@@ -825,7 +839,14 @@ $('#classicQuizBtn').onclick=()=>{let t=document.querySelector('.tab[data-page="
 $('#cardList').onclick=e=>{let s=e.target.closest('[data-star]'),ed=e.target.closest('[data-edit]'),d=e.target.closest('[data-delete]'),sel=e.target.closest('[data-select]');if(sel){sel.checked?selectedIds.add(sel.dataset.select):selectedIds.delete(sel.dataset.select);$('#selectedCount').textContent=selectedIds.size;return}if(s)toggleStar(s.dataset.star);if(ed)openEditor(ed.dataset.edit);if(d)deleteItem(d.dataset.delete)};
 $('#studyVisibleChoices').onclick=e=>{let b=e.target.closest('[data-visible-idx]');if(!b)return;studySession.visibleIdx=Number(b.dataset.visibleIdx);$$('[data-visible-idx]').forEach(x=>x.classList.toggle('active',x===b))};
 $('#startStudyBtn').onclick=startStudySession;
-$('#finishStudyBtn').onclick=()=>finishStudySession(true);
+$('#finishStudyBtn').onclick=()=>{
+  studySession.active=false;
+  studySession.queue=[];
+  $('#studySession').classList.add('hidden');
+  $('#studySummary').classList.add('hidden');
+  $('#finishStudyBtn').classList.add('hidden');
+  goHome();
+};
 $('#studyUnknownBtn').onclick=()=>classifyStudy(false);
 $('#studyKnownBtn').onclick=()=>classifyStudy(true);
 $('#studyArea').onclick=e=>{let f=e.target.closest('[data-reveal]');if(f)f.classList.remove('covered');let s=e.target.closest('[data-study-star]');if(s)toggleStar(s.dataset.studyStar).then(renderStudy)};
