@@ -34,16 +34,102 @@ body{min-height:100vh}button,input,select,textarea{font:inherit}button{cursor:po
 footer{text-align:center;color:#9aa2b3;font-size:12px;padding:20px}
 @media(max-width:780px){.library-grid{display:block}.folder-panel{position:static;margin-bottom:14px}.folderScroller{flex-direction:row;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding-bottom:3px}.folderScroller::-webkit-scrollbar{display:none}.folderWrap{min-width:165px;max-width:220px;flex:0 0 auto}.grid,.grid.two,.statrow{grid-template-columns:1fr 1fr}.deck-list,.card-list{grid-template-columns:1fr}.flashcard{grid-template-columns:1fr;min-height:auto}.face{min-height:170px}.topbar{align-items:flex-start}.trio{grid-template-columns:1fr 1fr 1fr}.cell{font-size:13px}.cell img{height:72px}.scopeRow{grid-template-columns:1fr 1fr}}
 @media(max-width:520px){.grid,.grid.two,.statrow{grid-template-columns:1fr}.hero{padding:20px}.trio{grid-template-columns:1fr}.cell{min-height:64px}.cell img{height:95px}.choices{grid-template-columns:1fr}.item{grid-template-columns:auto 1fr}.tools{grid-column:2;flex-direction:row;justify-content:flex-end}.bulkbar{align-items:flex-start;flex-direction:column}.searchbar{flex-wrap:wrap}.searchbar input{flex-basis:100%}.deck-detail-head{align-items:flex-start;flex-direction:column}.scopeRow{grid-template-columns:1fr}}
+
+/* ===== VocabStar classic layout ===== */
+.app{max-width:1080px;padding:14px 12px 72px}
+.topbar{margin-bottom:10px}
+.brand{font-size:28px;letter-spacing:-.02em}.logo{display:none}
+.top-actions .btn{font-weight:600;background:#fff;color:#1683ff;border-color:#dfe3ea;box-shadow:none}
+.hero{display:none}
+.tabs{display:none}
+.classic-search{margin:8px 0 12px}
+.classic-search input{width:100%;font-size:17px;border:1px solid #dfe3ea;border-radius:14px;padding:13px 14px;background:#fff;outline:none}
+.classic-search input:focus{border-color:#5b8df7;box-shadow:0 0 0 2px rgba(37,99,235,.08)}
+.library-grid{display:block}
+.folder-panel{position:static;margin-bottom:14px;padding:16px}
+.folderSelectRow{grid-template-columns:minmax(0,1fr) 58px;gap:9px}
+.folderSelectRow select{border-radius:12px;padding:12px 13px;font-size:16px}
+#addFolderBtn{font-size:24px;border-radius:12px;padding:0;min-height:50px}
+.folder-current-actions{gap:10px;margin-top:7px}
+.folderTextBtn{font-size:13px}
+.folder-subhead{margin-top:14px}
+.folderScroller{display:flex;flex-direction:row;overflow-x:auto;gap:10px;padding:1px 1px 6px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.folderScroller::-webkit-scrollbar{display:none}
+.folderWrap{min-width:210px;max-width:260px;flex:0 0 auto;border-radius:13px;padding:6px}
+.folderWrap.active{border-color:#3975f6;background:#eef5ff;box-shadow:0 0 0 1px #3975f6 inset}
+.folderListBtn{padding:9px 8px}.folderListTitle{font-size:16px;color:#0b7fe5}.folderListMeta{font-size:12px}
+#folderDeckPanel{padding:16px;margin-bottom:14px}
+.selected-folder-head{align-items:center;margin-bottom:12px}.selected-folder-head h2{font-size:20px}
+#addDeckBtn{border-radius:12px;padding:10px 14px}
+.deck-list{display:flex;grid-template-columns:none;overflow-x:auto;gap:10px;padding:1px 1px 7px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.deck-list::-webkit-scrollbar{display:none}
+.deck-card{min-width:210px;max-width:260px;flex:0 0 auto;border-radius:14px;padding:0;overflow:hidden;position:relative}
+.deck-card.active{border-color:#2970f2;background:#eef6ff;box-shadow:0 0 0 1px #2970f2 inset}
+.deck-head{padding:12px 12px 5px}.deck-name{font-size:20px;color:#0b7fe5}.deck-meta{font-size:13px}
+.deck-actions{margin:0;padding:0 10px 10px}
+.deck-actions .btn[data-open-deck]{position:absolute;inset:0;opacity:0;width:100%;height:100%;min-width:0;padding:0}
+.deck-tools{position:relative;z-index:2}.deck-tools button{background:transparent}
+.deck-detail-head{align-items:flex-start;margin-bottom:12px}
+.deck-detail-head .badge{display:none}
+.deck-detail-head h2{font-size:24px;display:inline-block}
+.deck-detail-titleline{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.classic-rename{border:1px solid #dfe3ea;background:#fff;color:#1683ff;border-radius:999px;padding:6px 10px;font-size:13px}
+.deck-detail-head>.row{display:none}
+.classic-action-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0 14px}
+.classic-action-grid .btn{padding:12px 8px;border-radius:13px;font-size:16px;color:#1683ff;background:#fff}
+.classic-action-grid .btn.primary{background:#2f6ee8;color:#fff;border-color:#2f6ee8}
+.classic-display-title{font-weight:900;margin:2px 0 8px}
+.classic-filter-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:12px}
+.classic-filter-btn{border:1px solid #dfe3ea;background:#fff;border-radius:12px;padding:11px 8px;color:#0b83e6;font-weight:800}
+.classic-filter-btn.active{border-color:#2f6ee8;background:#eef6ff;box-shadow:0 0 0 1px #2f6ee8 inset}
+#classicHiddenControls{display:none}
+.statrow{display:none}
+.card-list{display:block;margin-top:10px!important}
+.item{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;border-radius:14px;padding:13px 14px;margin-bottom:9px;background:#fff}
+.item.starred{border-color:#f0c44b;background:#fffdf5}
+.item>.selectbox,.item>div:first-child:empty{display:none}
+.item-main{grid-column:1}
+.trio{display:flex;flex-wrap:wrap;gap:5px 10px}
+.trio>div{display:flex;align-items:center;gap:5px;min-width:0}
+.trio>div:not(:last-child)::after{content:"｜";color:#c7cbd4;margin-left:5px}
+.label{font-size:10px;margin:0;color:#8b94a5}
+.cell{min-height:0;background:transparent;border-radius:0;padding:0;display:block;text-align:left;font-size:16px;line-height:1.45}
+.cell img{width:auto;max-width:120px;height:54px;object-fit:contain;vertical-align:middle}
+.tools{grid-column:2;display:flex;flex-direction:column;gap:6px}.iconbtn{width:34px;height:34px}
+#deckDetailPanel{padding:16px}
+.classic-meta{font-size:13px;color:var(--muted);margin-top:4px}
+.classic-top-add{margin-left:auto}
+@media(max-width:780px){
+  .app{padding:10px 8px 72px}
+  .brand{font-size:24px}
+  .topbar{align-items:center}.top-actions{gap:5px;flex-wrap:nowrap}.top-actions .btn{padding:8px 10px;font-size:12px}
+  .folder-panel,#folderDeckPanel,#deckDetailPanel{padding:13px;border-radius:18px}
+  .folderWrap{min-width:170px;max-width:220px}
+  .deck-card{min-width:180px;max-width:220px}
+  .deck-name{font-size:18px}
+  .classic-action-grid{gap:8px}.classic-action-grid .btn{font-size:15px;padding:11px 5px}
+  .trio{display:block}
+  .trio>div{display:grid;grid-template-columns:64px minmax(0,1fr);gap:7px;margin-bottom:5px}
+  .trio>div:not(:last-child)::after{display:none}
+  .label{font-size:11px;padding-top:3px}
+  .cell{font-size:16px}
+  .cell img{height:62px;max-width:150px}
+  .item{grid-template-columns:minmax(0,1fr) auto}
+}
+
 </style>
 </head>
 <body>
 <div class="app">
   <div class="topbar">
-    <div class="brand"><div class="logo">★</div><span>Vocabstar Trio</span></div>
-    <div class="top-actions"><button class="btn small" id="exportBtn">書き出し</button><button class="btn small" id="settingsBtn">設定</button></div>
+    <div class="brand"><span>VocabStar Trio</span></div>
+    <div class="top-actions"><button class="btn small" id="exportBtn">バックアップ</button><button class="btn small" id="settingsBtn">設定</button></div>
   </div>
 
-  <section class="hero"><h1 id="deckTitle">国旗・国名・首都</h1><p>画像・用語・用語など、3項目を1セットで覚える一般学習用 Vocabstar。</p></section>
+  <div id="deckTitle" class="hidden">国旗・国名・首都</div>
+  <div class="classic-search">
+    <input id="classicSearchInput" placeholder="3項目のどこからでも検索">
+  </div>
 
   <nav class="tabs">
     <button class="tab active" data-page="library">単語帳</button>
@@ -53,7 +139,7 @@ footer{text-align:center;color:#9aa2b3;font-size:12px;padding:20px}
 
   <main id="page-library" class="page">
     <div class="library-grid">
-      <aside class="panel folder-panel">
+      <section class="panel folder-panel">
         <div class="sectionTitle">フォルダ</div>
         <div class="folderSelectRow">
           <select id="folderSelect" aria-label="フォルダを選択"></select>
@@ -65,30 +151,58 @@ footer{text-align:center;color:#9aa2b3;font-size:12px;padding:20px}
         </div>
         <div class="folder-subhead"><b>フォルダ一覧</b><button class="btn small" id="manageFolderBtn">管理</button></div>
         <div class="folderScroller" id="folderBar"></div>
-      </aside>
+      </section>
 
       <div class="library-main">
         <section class="panel" id="folderDeckPanel">
           <div class="selected-folder-head">
             <div><h2 id="selectedFolderTitle">フォルダを作成してください</h2><div class="sub" id="selectedFolderMeta"></div></div>
-            <button class="btn primary" id="addDeckBtn">＋ セット追加</button>
+            <button class="btn primary" id="addDeckBtn">＋ セット</button>
           </div>
+          <div class="sectionTitle" style="font-size:16px;margin-top:4px">セットリスト</div>
           <div class="deck-list" id="deckList"></div>
         </section>
 
         <section class="panel hidden" id="deckDetailPanel">
           <div class="deck-detail-head">
-            <div><span class="badge" id="deckFolderBadge"></span><h2 id="currentDeckTitle" style="margin-top:7px">セット</h2><div class="sub" id="currentDeckMeta"></div></div>
-            <div class="row"><button class="btn" id="importDeckBtn">インポート</button><button class="btn primary" id="addItemBtn">＋ 追加</button></div>
+            <div style="min-width:0;flex:1">
+              <span class="badge" id="deckFolderBadge"></span>
+              <div class="deck-detail-titleline">
+                <h2 id="currentDeckTitle" style="margin-top:0">セット</h2>
+                <button class="classic-rename" id="renameCurrentDeckBtn">名前変更</button>
+                <button class="btn small classic-top-add" id="addItemBtn">＋追加</button>
+              </div>
+              <div class="classic-meta" id="currentDeckMeta"></div>
+            </div>
+            <div class="row"><button class="btn" id="importDeckBtn">インポート</button></div>
           </div>
-          <div class="statrow">
-            <div class="stat"><b id="countAll">0</b><span>登録</span></div>
-            <div class="stat"><b id="countStar">0</b><span>★</span></div>
-            <div class="stat"><b id="countImage">0</b><span>画像つき</span></div>
-            <div class="stat"><b id="countLearned">0</b><span>学習済み</span></div>
+
+          <div class="classic-action-grid">
+            <button class="btn" id="classicImportBtn">インポート</button>
+            <button class="btn" id="classicStudyBtn">カード</button>
+            <button class="btn primary" id="classicQuizBtn">4択</button>
           </div>
-          <div class="searchbar"><input id="searchInput" placeholder="3項目のどこからでも検索"><button class="btn" id="bulkModeBtn">選択削除</button></div>
-          <div class="row space"><span class="sub" id="schemaText"></span><label class="sub"><input type="checkbox" id="starOnly"> ★のみ</label></div>
+
+          <div class="classic-display-title">表示</div>
+          <div class="classic-filter-grid">
+            <button class="classic-filter-btn active" id="showAllBtn">全て</button>
+            <button class="classic-filter-btn" id="showStarBtn">★付き</button>
+          </div>
+
+          <div id="classicHiddenControls">
+            <div class="statrow">
+              <div class="stat"><b id="countAll">0</b><span>登録</span></div>
+              <div class="stat"><b id="countStar">0</b><span>★</span></div>
+              <div class="stat"><b id="countImage">0</b><span>画像つき</span></div>
+              <div class="stat"><b id="countLearned">0</b><span>学習済み</span></div>
+            </div>
+            <div class="searchbar"><input id="searchInput" placeholder="3項目のどこからでも検索"><button class="btn" id="bulkModeBtn">選択削除</button></div>
+            <div class="row space schema-row"><span class="sub" id="schemaText"></span><label class="sub"><input type="checkbox" id="starOnly"> ★のみ</label></div>
+          </div>
+
+          <div class="row end" style="margin:0 0 8px">
+            <button class="btn small danger" id="bulkModeBtnVisible">選択削除</button>
+          </div>
           <div id="bulkBar" class="bulkbar hidden"><span><b id="selectedCount">0</b>件を選択中</span><div class="row"><button class="btn small" id="cancelBulk">キャンセル</button><button class="btn small danger solid" id="deleteSelected">選択した項目を削除</button></div></div>
           <div class="card-list" id="cardList" style="margin-top:14px"></div>
         </section>
@@ -200,18 +314,18 @@ function renderDecks(){
   if(!f){$('#selectedFolderTitle').textContent='フォルダを作成してください';$('#selectedFolderMeta').textContent='';list.innerHTML='<div class="empty">左の「＋」からフォルダを作成してください。</div>';return}
   const ds=decksInFolder(f.id);$('#selectedFolderTitle').textContent=f.name;$('#selectedFolderMeta').textContent=`${ds.length}セット`;
   if(!ds.length){list.innerHTML='<div class="empty">このフォルダにはセットがありません。<br>「＋ セット追加」から作成してください。</div>';return}
-  list.innerHTML=ds.map(d=>{let arr=itemsInDeck(d.id),stars=arr.filter(x=>x.star).length;return `<div class="deck-card ${currentDeck===d.id?'active':''}"><div class="deck-head"><div><div class="deck-name">${esc(d.name)}</div><div class="deck-meta">${arr.length}件${stars?` ・ ★${stars}`:''}</div></div><div class="deck-tools"><button data-rename-deck="${esc(d.id)}" title="名前変更">✎</button><button data-delete-deck="${esc(d.id)}" title="削除">×</button></div></div><div class="deck-actions"><button class="btn small ${currentDeck===d.id?'primary':'ghost'}" data-open-deck="${esc(d.id)}">${currentDeck===d.id?'開いています':'開く'}</button><button class="btn small" data-import-deck="${esc(d.id)}">インポート</button></div></div>`}).join('')
+  list.innerHTML=ds.map(d=>{let arr=itemsInDeck(d.id),stars=arr.filter(x=>x.star).length;return `<div class="deck-card ${currentDeck===d.id?'active':''}"><div class="deck-head"><div><div class="deck-name">${esc(d.name)}</div><div class="deck-meta">${arr.length}件${stars?` ・ ★${stars}`:''}</div></div><div class="deck-tools"><button data-rename-deck="${esc(d.id)}" title="名前変更">✎</button><button data-delete-deck="${esc(d.id)}" title="削除">×</button></div></div><div class="deck-actions"><button class="btn small" data-open-deck="${esc(d.id)}">開く</button></div></div>`}).join('')
 }
 function renderDeckDetail(){
   const d=decks.find(x=>x.id===currentDeck);if(!d||d.folderId!==currentFolder){$('#deckDetailPanel').classList.add('hidden');return}
   $('#deckDetailPanel').classList.remove('hidden');$('#deckFolderBadge').textContent='📁 '+folderName(d.folderId);$('#currentDeckTitle').textContent=d.name;
-  let arr=itemsInDeck(d.id);$('#currentDeckMeta').textContent=`${arr.length}件`;
+  let arr=itemsInDeck(d.id);$('#currentDeckMeta').textContent=`${folderName(d.folderId)} / 全て ${arr.length}件`;
   $('#countAll').textContent=arr.length;$('#countStar').textContent=arr.filter(x=>x.star).length;$('#countImage').textContent=arr.filter(x=>x.values.some((v,i)=>config.types[i]==='image'&&v)).length;$('#countLearned').textContent=arr.filter(x=>x.learned).length;
   renderLibrary();
 }
 function filteredItems(){let q=$('#searchInput').value.trim().toLowerCase(),star=$('#starOnly').checked;return itemsInDeck(currentDeck).filter(x=>(!star||x.star)&&(!q||x.values.some(v=>textFor(v).toLowerCase().includes(q))))}
 function renderLibrary(){
-  if(!currentDeck)return;let arr=filteredItems(),el=$('#cardList');$('#bulkBar').classList.toggle('hidden',!bulkMode);$('#selectedCount').textContent=selectedIds.size;
+  if(!currentDeck)return;$('#showAllBtn')?.classList.toggle('active',!$('#starOnly').checked);$('#showStarBtn')?.classList.toggle('active',$('#starOnly').checked);let arr=filteredItems(),el=$('#cardList');$('#bulkBar').classList.toggle('hidden',!bulkMode);$('#selectedCount').textContent=selectedIds.size;
   if(!arr.length){el.innerHTML='<div class="empty">この条件に合う項目はありません。</div>';return}
   el.innerHTML=arr.map(x=>`<div class="item ${x.star?'starred':''}">${bulkMode?`<div class="selectbox"><input type="checkbox" data-select="${x.id}" ${selectedIds.has(x.id)?'checked':''}></div>`:'<div></div>'}<div class="item-main"><div class="trio">${x.values.map((v,i)=>`<div><span class="label">${esc(config.labels[i])}</span><div class="cell">${mediaHTML(v,config.types[i])}</div></div>`).join('')}</div></div><div class="tools"><button class="iconbtn star ${x.star?'on':''}" data-star="${x.id}" title="星">★</button><button class="iconbtn" data-edit="${x.id}" title="編集">✎</button><button class="iconbtn delete" data-delete="${x.id}" title="削除">🗑</button></div></div>`).join('')
 }
@@ -274,7 +388,15 @@ $('#folderBar').onclick=e=>{let r=e.target.closest('[data-rename-folder]'),d=e.t
 $('#folderManageList').onclick=e=>{let r=e.target.closest('[data-rename-folder]'),d=e.target.closest('[data-delete-folder]');if(r)renameFolder(r.dataset.renameFolder);if(d)deleteFolder(d.dataset.deleteFolder)};
 $('#deckList').onclick=e=>{let o=e.target.closest('[data-open-deck]'),i=e.target.closest('[data-import-deck]'),r=e.target.closest('[data-rename-deck]'),d=e.target.closest('[data-delete-deck]');if(o)return setCurrentDeck(o.dataset.openDeck);if(i)return openImport(i.dataset.importDeck);if(r)return renameDeck(r.dataset.renameDeck);if(d)return deleteDeck(d.dataset.deleteDeck)};
 $('#addItemBtn').onclick=()=>openEditor();$('#importDeckBtn').onclick=()=>currentDeck&&openImport(currentDeck);$('#runImport').onclick=runImport;
-$('#searchInput').oninput=renderLibrary;$('#starOnly').onchange=renderLibrary;$('#bulkModeBtn').onclick=()=>{bulkMode=!bulkMode;selectedIds.clear();renderLibrary()};$('#cancelBulk').onclick=()=>{bulkMode=false;selectedIds.clear();renderLibrary()};$('#deleteSelected').onclick=deleteSelected;
+$('#searchInput').oninput=renderLibrary;$('#starOnly').onchange=renderLibrary;
+$('#classicSearchInput').oninput=e=>{$('#searchInput').value=e.target.value;renderLibrary()};
+$('#showAllBtn').onclick=()=>{$('#starOnly').checked=false;renderLibrary()};
+$('#showStarBtn').onclick=()=>{$('#starOnly').checked=true;renderLibrary()};
+$('#bulkModeBtnVisible').onclick=()=>$('#bulkModeBtn').click();
+$('#classicImportBtn').onclick=()=>currentDeck&&openImport(currentDeck);
+$('#renameCurrentDeckBtn').onclick=()=>currentDeck&&renameDeck(currentDeck);
+$('#classicStudyBtn').onclick=()=>{let t=document.querySelector('.tab[data-page="study"]');if(t)t.click()};
+$('#classicQuizBtn').onclick=()=>{let t=document.querySelector('.tab[data-page="quiz"]');if(t)t.click()};$('#bulkModeBtn').onclick=()=>{bulkMode=!bulkMode;selectedIds.clear();renderLibrary()};$('#cancelBulk').onclick=()=>{bulkMode=false;selectedIds.clear();renderLibrary()};$('#deleteSelected').onclick=deleteSelected;
 $('#cardList').onclick=e=>{let s=e.target.closest('[data-star]'),ed=e.target.closest('[data-edit]'),d=e.target.closest('[data-delete]'),sel=e.target.closest('[data-select]');if(sel){sel.checked?selectedIds.add(sel.dataset.select):selectedIds.delete(sel.dataset.select);$('#selectedCount').textContent=selectedIds.size;return}if(s)toggleStar(s.dataset.star);if(ed)openEditor(ed.dataset.edit);if(d)deleteItem(d.dataset.delete)};
 $('#studyArea').onclick=e=>{let f=e.target.closest('[data-reveal]');if(f)f.classList.remove('covered');let s=e.target.closest('[data-study-star]');if(s)toggleStar(s.dataset.studyStar).then(renderStudy)};$('#quizArea').onclick=e=>{let b=e.target.closest('[data-choice]');if(b)answerQuiz(b)};
 $('#prevStudy').onclick=()=>moveStudy(-1);$('#nextStudy').onclick=()=>moveStudy(1);$('#nextQuiz').onclick=newQuiz;$('#studyStarOnly').onchange=()=>{studyIndex=0;renderStudy()};$('#quizStarOnly').onchange=newQuiz;
