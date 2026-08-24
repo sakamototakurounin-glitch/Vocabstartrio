@@ -103,7 +103,7 @@ footer{text-align:center;color:#9aa2b3;font-size:12px;padding:20px}
   .app{padding:10px 8px 72px}
   .brand{font-size:24px}
   .topbar{align-items:center}.top-actions{gap:5px;flex-wrap:nowrap}.top-actions .btn{padding:8px 10px;font-size:12px}
-  .folder-panel,#folderDeckPanel,#deckDetailPanel{padding:13px;border-radius:18px}
+  .folder-panel,#deckDetailPanel{padding:13px;border-radius:18px}
   .folderWrap{min-width:170px;max-width:220px}
   .deck-card{min-width:180px;max-width:220px}
   .deck-name{font-size:18px}
@@ -117,6 +117,24 @@ footer{text-align:center;color:#9aa2b3;font-size:12px;padding:20px}
   .item{grid-template-columns:minmax(0,1fr) auto}
 }
 
+
+/* v6: VocabStarと同じ「フォルダ選択 → セットリスト」の一体表示 */
+.set-subhead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:18px;margin-bottom:10px;font-size:16px}
+.folder-panel .deck-list{margin-top:0}
+.compact-empty{padding:18px 10px}
+@media(min-width:781px){
+  .folder-panel{position:static}
+  .folder-panel .deck-list{display:flex;overflow-x:auto;gap:10px;padding:1px 1px 7px;scrollbar-width:thin}
+  .folder-panel .deck-card{min-width:190px;max-width:240px;flex:0 0 auto}
+}
+@media(max-width:780px){
+  .library-grid{display:block}
+  .folder-panel{margin-bottom:14px}
+  .set-subhead{margin-top:17px}
+  .folder-panel .deck-list{display:flex;overflow-x:auto;gap:10px;padding:1px 1px 7px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .folder-panel .deck-list::-webkit-scrollbar{display:none}
+  .folder-panel .deck-card{min-width:210px;max-width:260px;flex:0 0 auto}
+}
 </style>
 </head>
 <body>
@@ -149,20 +167,14 @@ footer{text-align:center;color:#9aa2b3;font-size:12px;padding:20px}
           <button class="folderTextBtn" id="renameCurrentFolder">名前変更</button>
           <button class="folderTextBtn danger" id="deleteCurrentFolder">削除</button>
         </div>
-        <div class="folder-subhead"><b>フォルダ一覧</b><button class="btn small" id="manageFolderBtn">管理</button></div>
-        <div class="folderScroller" id="folderBar"></div>
+        <div class="set-subhead">
+          <b>セットリスト</b>
+          <button class="btn small primary" id="addDeckBtn">＋ セット</button>
+        </div>
+        <div class="deck-list" id="deckList"></div>
       </section>
 
       <div class="library-main">
-        <section class="panel" id="folderDeckPanel">
-          <div class="selected-folder-head">
-            <div><h2 id="selectedFolderTitle">フォルダを作成してください</h2><div class="sub" id="selectedFolderMeta"></div></div>
-            <button class="btn primary" id="addDeckBtn">＋ セット</button>
-          </div>
-          <div class="sectionTitle" style="font-size:16px;margin-top:4px">セットリスト</div>
-          <div class="deck-list" id="deckList"></div>
-        </section>
-
         <section class="panel hidden" id="deckDetailPanel">
           <div class="deck-detail-head">
             <div style="min-width:0;flex:1">
@@ -301,7 +313,6 @@ function syncSettingsUI(){
 function renderAll(){renderFolderControls();renderDecks();renderDeckDetail();$('#schemaText').textContent=config.labels.join(' ・ ')}
 function renderFolderControls(){
   $('#folderSelect').innerHTML=folderOptions(currentFolder);$('#folderSelect').value=currentFolder||'';
-  $('#folderBar').innerHTML=folders.length?folders.map(f=>{let ds=decksInFolder(f.id);let n=ds.reduce((s,d)=>s+itemsInDeck(d.id).length,0);return `<div class="folderWrap ${currentFolder===f.id?'active':''}"><button class="folderListBtn" data-folder="${esc(f.id)}"><div class="folderListTitle">${esc(f.name)}</div><div class="folderListMeta">${ds.length}セット・${n}件</div></button><div class="folderListActions"><button data-rename-folder="${esc(f.id)}" title="名前変更">✎</button><button data-delete-folder="${esc(f.id)}" title="削除">×</button></div></div>`}).join(''):'<div class="empty">フォルダを作成してください。</div>';
   const real=folders.find(f=>f.id===currentFolder);$('#renameCurrentFolder').disabled=!real;$('#deleteCurrentFolder').disabled=!real;$('#addDeckBtn').disabled=!real;
   renderFolderManager();
 }
@@ -311,9 +322,9 @@ function renderFolderManager(){
 }
 function renderDecks(){
   const f=folders.find(x=>x.id===currentFolder),list=$('#deckList');
-  if(!f){$('#selectedFolderTitle').textContent='フォルダを作成してください';$('#selectedFolderMeta').textContent='';list.innerHTML='<div class="empty">左の「＋」からフォルダを作成してください。</div>';return}
-  const ds=decksInFolder(f.id);$('#selectedFolderTitle').textContent=f.name;$('#selectedFolderMeta').textContent=`${ds.length}セット`;
-  if(!ds.length){list.innerHTML='<div class="empty">このフォルダにはセットがありません。<br>「＋ セット追加」から作成してください。</div>';return}
+  if(!f){list.innerHTML='<div class="empty compact-empty">上の「＋」からフォルダを作成してください。</div>';return}
+  const ds=decksInFolder(f.id);
+  if(!ds.length){list.innerHTML='<div class="empty compact-empty">このフォルダにはセットがありません。<br>「＋ セット」から作成してください。</div>';return}
   list.innerHTML=ds.map(d=>{let arr=itemsInDeck(d.id),stars=arr.filter(x=>x.star).length;return `<div class="deck-card ${currentDeck===d.id?'active':''}"><div class="deck-head"><div><div class="deck-name">${esc(d.name)}</div><div class="deck-meta">${arr.length}件${stars?` ・ ★${stars}`:''}</div></div><div class="deck-tools"><button data-rename-deck="${esc(d.id)}" title="名前変更">✎</button><button data-delete-deck="${esc(d.id)}" title="削除">×</button></div></div><div class="deck-actions"><button class="btn small" data-open-deck="${esc(d.id)}">開く</button></div></div>`}).join('')
 }
 function renderDeckDetail(){
@@ -381,10 +392,9 @@ async function exportData(){let data={app:'Vocabstar Trio',version:4,config,fold
 
 $$('.tab').forEach(t=>t.onclick=()=>{$$('.tab').forEach(x=>x.classList.remove('active'));t.classList.add('active');$$('.page').forEach(p=>p.classList.add('hidden'));$('#page-'+t.dataset.page).classList.remove('hidden');if(t.dataset.page==='study'){syncStudyQuizSelectors();studyIndex=0;renderStudy()}if(t.dataset.page==='quiz'){syncStudyQuizSelectors();newQuiz()}});
 $('#settingsBtn').onclick=()=>$('#settingsModal').classList.remove('hidden');$('#exportBtn').onclick=exportData;$('#saveItem').onclick=saveEditor;
-$('#addFolderBtn').onclick=()=>{$('#folderModal').classList.remove('hidden');setTimeout(()=>$('#newFolderName').focus(),50)};$('#manageFolderBtn').onclick=()=>$('#folderModal').classList.remove('hidden');$('#createFolder').onclick=createFolder;$('#newFolderName').onkeydown=e=>{if(e.key==='Enter')createFolder()};
+$('#addFolderBtn').onclick=()=>{$('#folderModal').classList.remove('hidden');setTimeout(()=>$('#newFolderName').focus(),50)};$('#createFolder').onclick=createFolder;$('#newFolderName').onkeydown=e=>{if(e.key==='Enter')createFolder()};
 $('#addDeckBtn').onclick=openDeckModal;$('#createDeck').onclick=createDeck;$('#newDeckName').onkeydown=e=>{if(e.key==='Enter')createDeck()};
 $('#folderSelect').onchange=e=>setCurrentFolder(e.target.value);$('#renameCurrentFolder').onclick=()=>currentFolder&&renameFolder(currentFolder);$('#deleteCurrentFolder').onclick=()=>currentFolder&&deleteFolder(currentFolder);
-$('#folderBar').onclick=e=>{let r=e.target.closest('[data-rename-folder]'),d=e.target.closest('[data-delete-folder]'),b=e.target.closest('[data-folder]');if(r)return renameFolder(r.dataset.renameFolder);if(d)return deleteFolder(d.dataset.deleteFolder);if(b)setCurrentFolder(b.dataset.folder)};
 $('#folderManageList').onclick=e=>{let r=e.target.closest('[data-rename-folder]'),d=e.target.closest('[data-delete-folder]');if(r)renameFolder(r.dataset.renameFolder);if(d)deleteFolder(d.dataset.deleteFolder)};
 $('#deckList').onclick=e=>{let o=e.target.closest('[data-open-deck]'),i=e.target.closest('[data-import-deck]'),r=e.target.closest('[data-rename-deck]'),d=e.target.closest('[data-delete-deck]');if(o)return setCurrentDeck(o.dataset.openDeck);if(i)return openImport(i.dataset.importDeck);if(r)return renameDeck(r.dataset.renameDeck);if(d)return deleteDeck(d.dataset.deleteDeck)};
 $('#addItemBtn').onclick=()=>openEditor();$('#importDeckBtn').onclick=()=>currentDeck&&openImport(currentDeck);$('#runImport').onclick=runImport;
