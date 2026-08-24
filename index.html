@@ -135,13 +135,94 @@ footer{text-align:center;color:#9aa2b3;font-size:12px;padding:20px}
   .folder-panel .deck-list::-webkit-scrollbar{display:none}
   .folder-panel .deck-card{min-width:210px;max-width:260px;flex:0 0 auto}
 }
+
+/* ===== v7: card mode / set-specific schema / clear stars / image fix ===== */
+.iconbtn.star{
+  background:#fff!important;
+  color:#111827!important;
+  border:1.5px solid #111827!important;
+  box-shadow:none!important;
+  font-weight:900;
+}
+.iconbtn.star.on{
+  background:#fff!important;
+  color:#111827!important;
+  border-color:#111827!important;
+}
+.item.starred{border-color:#dfe3ea!important;background:#fff!important}
+
+.quizprompt .prompt-content{
+  display:flex;align-items:center;justify-content:center;
+  width:100%;min-height:105px;max-width:100%;overflow:hidden;
+}
+.quizprompt .prompt-content img{
+  display:block!important;
+  width:auto!important;height:auto!important;
+  max-width:min(100%,320px)!important;
+  max-height:180px!important;
+  object-fit:contain!important;
+  margin:0 auto!important;
+}
+.choice{
+  display:flex;align-items:center;justify-content:center;
+  text-align:center;overflow:hidden;min-width:0;
+}
+.choice img{
+  display:block!important;
+  width:auto!important;height:auto!important;
+  max-width:100%!important;
+  max-height:110px!important;
+  object-fit:contain!important;
+  margin:auto!important;
+}
+
+.study-head{align-items:center}
+.study-setup{
+  margin-top:18px;border:1px solid var(--line);border-radius:18px;
+  padding:18px;background:#fafbff;
+}
+.study-setup-title{font-weight:900;font-size:17px;margin-bottom:12px}
+.study-visible-choices{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.study-visible-choice{
+  border:1px solid #dfe3ea;background:#fff;border-radius:13px;
+  padding:12px 8px;font-weight:800;color:#344054;
+}
+.study-visible-choice.active{
+  border-color:#111827;background:#fff;
+  box-shadow:0 0 0 1px #111827 inset;color:#111827;
+}
+.study-star-only{display:flex;align-items:center;gap:7px;margin:14px 0;color:var(--muted);font-size:13px}
+.study-start-btn{width:100%;padding:13px}
+.study-swipe-hint{text-align:center;color:var(--muted);font-size:12px;margin:11px 0 9px}
+.study-judge-buttons{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.study-judge-buttons .btn{padding:13px 8px}
+.study-unknown{border-color:#f0bcbc!important;color:#b23c3c!important;background:#fff!important}
+.study-known{border-color:#b6d8c4!important;color:#207449!important;background:#fff!important}
+.flashcard.study-swipe-card{transition:transform .18s ease,opacity .18s ease}
+.flashcard.study-swipe-left{transform:translateX(-115%) rotate(-7deg);opacity:0}
+.flashcard.study-swipe-right{transform:translateX(115%) rotate(7deg);opacity:0}
+.study-summary{
+  border:1px solid var(--line);border-radius:18px;padding:22px 16px;
+  text-align:center;margin-top:18px;background:#fafafa;
+}
+.study-summary h3{margin:0 0 12px}
+.study-summary-counts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+.study-summary-count{background:#fff;border:1px solid var(--line);border-radius:14px;padding:15px 8px}
+.study-summary-count b{font-size:28px;display:block}
+
+@media(max-width:520px){
+  .study-visible-choices{grid-template-columns:1fr}
+  .quizprompt .prompt-content img{max-height:150px!important}
+  .choice img{max-height:90px!important}
+}
+
 </style>
 </head>
 <body>
 <div class="app">
   <div class="topbar">
     <div class="brand"><span>VocabStar Trio</span></div>
-    <div class="top-actions"><button class="btn small" id="exportBtn">バックアップ</button><button class="btn small" id="settingsBtn">設定</button></div>
+    <div class="top-actions"><button class="btn small" id="exportBtn">バックアップ</button></div>
   </div>
 
   <div id="deckTitle" class="hidden">国旗・国名・首都</div>
@@ -182,6 +263,7 @@ footer{text-align:center;color:#9aa2b3;font-size:12px;padding:20px}
               <div class="deck-detail-titleline">
                 <h2 id="currentDeckTitle" style="margin-top:0">セット</h2>
                 <button class="classic-rename" id="renameCurrentDeckBtn">名前変更</button>
+                <button class="classic-rename" id="deckSettingsBtn">設定</button>
                 <button class="btn small classic-top-add" id="addItemBtn">＋追加</button>
               </div>
               <div class="classic-meta" id="currentDeckMeta"></div>
@@ -224,17 +306,45 @@ footer{text-align:center;color:#9aa2b3;font-size:12px;padding:20px}
 
   <main id="page-study" class="page hidden">
     <section class="panel">
-      <div class="row space"><div><h2>3面カード</h2><div class="sub">フォルダとセットを選んで学習します。</div></div><div class="scopeRow"><select id="studyFolder"></select><select id="studyDeck"></select></div></div>
-      <div class="row end" style="margin-top:8px"><label class="sub"><input type="checkbox" id="studyStarOnly"> ★のみ</label></div>
-      <div id="studyArea" style="margin-top:14px"></div><div class="row end" style="margin-top:12px"><button class="btn" id="prevStudy">← 前</button><button class="btn primary" id="nextStudy">次 →</button></div>
+      <div class="row space study-head">
+        <div>
+          <h2 style="margin:0">カード</h2>
+          <div class="sub" id="studyDeckName">表示中のセットで学習します。</div>
+        </div>
+        <button class="btn danger hidden" id="finishStudyBtn">終了</button>
+      </div>
+
+      <div id="studySetup" class="study-setup">
+        <div class="study-setup-title">最初から表示する項目を1つ選択</div>
+        <div class="study-visible-choices" id="studyVisibleChoices"></div>
+        <label class="study-star-only"><input type="checkbox" id="studyStarOnly"> ★付きだけ</label>
+        <button class="btn primary study-start-btn" id="startStudyBtn">カードを開始</button>
+      </div>
+
+      <div id="studySession" class="hidden">
+        <div id="studyArea" style="margin-top:14px"></div>
+        <div class="study-swipe-hint">← 分からない　｜　右へスライド＝分かった →</div>
+        <div class="study-judge-buttons">
+          <button class="btn study-unknown" id="studyUnknownBtn">← 分からない</button>
+          <button class="btn study-known" id="studyKnownBtn">分かった →</button>
+        </div>
+      </div>
+
+      <div id="studySummary" class="hidden"></div>
     </section>
   </main>
 
   <main id="page-quiz" class="page hidden">
     <section class="panel">
-      <div class="row space"><div><h2>四択</h2><div class="sub">選択したセットの中だけから出題します。</div></div><div class="scopeRow"><select id="quizFolder"></select><select id="quizDeck"></select></div></div>
-      <div class="row end" style="margin-top:8px"><label class="sub"><input type="checkbox" id="quizStarOnly"> ★のみ</label></div>
-      <div id="quizArea"></div><div class="row end"><button class="btn primary" id="nextQuiz">次の問題</button></div>
+      <div class="row space">
+        <div>
+          <h2 style="margin:0">四択</h2>
+          <div class="sub" id="quizDeckName">表示中のセットから出題します。</div>
+        </div>
+        <label class="sub"><input type="checkbox" id="quizStarOnly"> ★付きだけ</label>
+      </div>
+      <div id="quizArea"></div>
+      <div class="row end"><button class="btn primary" id="nextQuiz">次の問題</button></div>
     </section>
   </main>
 
@@ -250,7 +360,7 @@ france.png   フランス   パリ
 
 → japan.png / france.png を「画像を選択」から同時に選ぶだけ。</div><div id="importNotice" style="margin-top:12px"></div></div></div>
 
-<div id="settingsModal" class="modal hidden"><div class="sheet"><h3>単語帳の設定</h3><div class="field"><label>単語帳名</label><input id="settingTitle" value="Vocabstar Trio"></div><div class="grid" style="margin-top:12px"><div class="field"><label>項目1の名前</label><input id="label0" value="画像"><select id="type0" style="margin-top:6px"><option value="image">画像</option><option value="text">文字</option></select></div><div class="field"><label>項目2の名前</label><input id="label1" value="国名"><select id="type1" style="margin-top:6px"><option value="text">文字</option><option value="image">画像</option></select></div><div class="field"><label>項目3の名前</label><input id="label2" value="首都"><select id="type2" style="margin-top:6px"><option value="text">文字</option><option value="image">画像</option></select></div></div><div class="sheet-actions"><button class="btn" data-close>キャンセル</button><button class="btn primary" id="saveSettings">保存</button></div></div></div>
+<div id="settingsModal" class="modal hidden"><div class="sheet"><h3>セットの設定</h3><div class="sub" id="settingsDeckName" style="margin-bottom:12px"></div><div class="field hidden"><label>単語帳名</label><input id="settingTitle" value="Vocabstar Trio"></div><div class="grid" style="margin-top:12px"><div class="field"><label>項目1の名前</label><input id="label0" value="画像"><select id="type0" style="margin-top:6px"><option value="image">画像</option><option value="text">文字</option></select></div><div class="field"><label>項目2の名前</label><input id="label1" value="国名"><select id="type1" style="margin-top:6px"><option value="text">文字</option><option value="image">画像</option></select></div><div class="field"><label>項目3の名前</label><input id="label2" value="首都"><select id="type2" style="margin-top:6px"><option value="text">文字</option><option value="image">画像</option></select></div></div><div class="sheet-actions"><button class="btn" data-close>キャンセル</button><button class="btn primary" id="saveSettings">保存</button></div></div></div>
 
 <div id="folderModal" class="modal hidden"><div class="sheet"><h3>フォルダ管理</h3><div class="row" style="margin-bottom:14px"><input id="newFolderName" placeholder="フォルダ名" style="flex:1;border:1px solid var(--line);border-radius:12px;padding:11px 12px"><button class="btn primary" id="createFolder">追加</button></div><div id="folderManageList"></div><p class="sub">フォルダを削除すると、そのフォルダ内のセットと登録データも削除されます。</p><div class="sheet-actions"><button class="btn" data-close>閉じる</button></div></div></div>
 
@@ -387,11 +497,316 @@ function quizPool(){let id=$('#quizDeck').value;return itemsInDeck(id).filter(x=
 function newQuiz(){let pool=quizPool(),qa=$('#quizArea');if(pool.length<2){qa.innerHTML='<div class="empty">四択には同じセット内に2件以上必要です。</div>';quizState=null;return}let answer=pool[Math.floor(Math.random()*pool.length)],pairs=[];for(let p=0;p<3;p++)for(let a=0;a<3;a++)if(p!==a)pairs.push([p,a]);let[promptIdx,answerIdx]=pairs[Math.floor(Math.random()*pairs.length)],valid=pool.filter(x=>x.id!==answer.id&&x.values[answerIdx]&&x.values[answerIdx]!==answer.values[answerIdx]),count=Math.min(3,valid.length),choices=[answer,...sample(valid,count)].sort(()=>Math.random()-.5);quizState={answerId:answer.id,answerIdx,locked:false};qa.innerHTML=`<div class="quizprompt"><span class="badge">${esc(config.labels[promptIdx])} → ${esc(config.labels[answerIdx])}</span><div class="prompt-content">${mediaHTML(answer.values[promptIdx],config.types[promptIdx])}</div><div class="sub">正しい「${esc(config.labels[answerIdx])}」は？</div></div><div class="choices">${choices.map(x=>`<button class="choice" data-choice data-id="${x.id}">${mediaHTML(x.values[answerIdx],config.types[answerIdx])}</button>`).join('')}</div><div id="quizFeedback" style="margin-top:12px"></div>`}
 function answerQuiz(btn){if(!quizState||quizState.locked)return;quizState.locked=true;let correct=btn.dataset.id===quizState.answerId;btn.classList.add(correct?'correct':'wrong');$$('[data-choice]').forEach(b=>{if(b.dataset.id===quizState.answerId)b.classList.add('correct')});$('#quizFeedback').innerHTML=`<div class="notice ${correct?'':'warn'}">${correct?'正解！':'不正解。正解を緑で表示しました。'}</div>`;let x=items.find(v=>v.id===quizState.answerId);if(x){x.learned=true;put('items',x);renderDeckDetail()}}
 
-function closeModals(){$$('.modal').forEach(m=>m.classList.add('hidden'))}
-async function exportData(){let data={app:'Vocabstar Trio',version:4,config,folders,decks,items};let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='vocabstar-trio-backup.json';a.click();URL.revokeObjectURL(a.href)}
 
-$$('.tab').forEach(t=>t.onclick=()=>{$$('.tab').forEach(x=>x.classList.remove('active'));t.classList.add('active');$$('.page').forEach(p=>p.classList.add('hidden'));$('#page-'+t.dataset.page).classList.remove('hidden');if(t.dataset.page==='study'){syncStudyQuizSelectors();studyIndex=0;renderStudy()}if(t.dataset.page==='quiz'){syncStudyQuizSelectors();newQuiz()}});
-$('#settingsBtn').onclick=()=>$('#settingsModal').classList.remove('hidden');$('#exportBtn').onclick=exportData;$('#saveItem').onclick=saveEditor;
+/* ===== v7 behavior overrides ===== */
+function deckSchema(deckId){
+  const d=decks.find(x=>x.id===deckId);
+  return {
+    labels:(Array.isArray(d?.labels)&&d.labels.length===3?d.labels:(config.labels||['項目1','項目2','項目3'])).slice(0,3),
+    types:(Array.isArray(d?.types)&&d.types.length===3?d.types:(config.types||['text','text','text'])).slice(0,3)
+  };
+}
+function ensureDeckSchemas(){
+  let changed=false;
+  for(const d of decks){
+    if(!Array.isArray(d.labels)||d.labels.length!==3){
+      d.labels=(config.labels||['項目1','項目2','項目3']).slice(0,3);changed=true;
+    }
+    if(!Array.isArray(d.types)||d.types.length!==3){
+      d.types=(config.types||['text','text','text']).slice(0,3);changed=true;
+    }
+  }
+  return changed;
+}
+
+async function init(){
+  await openDB();
+  config=await getMeta('config')||config;
+  folders=await getMeta('folders')||[];
+  decks=await getMeta('decks')||[];
+  items=await getAll('items');
+  await migrateLegacy();
+  if(ensureDeckSchemas())await saveDecks();
+  currentFolder=folders[0]?.id||null;
+  currentDeck=decksInFolder(currentFolder)[0]?.id||null;
+  syncSettingsUI();
+  renderAll();
+  prepareStudy();
+  newQuiz();
+}
+
+function syncSettingsUI(deckId=currentDeck){
+  const s=deckSchema(deckId);
+  s.labels.forEach((v,i)=>{const el=$('#label'+i);if(el)el.value=v});
+  s.types.forEach((v,i)=>{
+    const t=$('#type'+i);if(t)t.value=v;
+    const it=$('#importType'+i);if(it)it.value=v;
+  });
+  const d=decks.find(x=>x.id===deckId);
+  const name=$('#settingsDeckName');
+  if(name)name.textContent=d?`${folderName(d.folderId)} / ${d.name}`:'';
+}
+
+function renderAll(){
+  renderFolderControls();
+  renderDecks();
+  renderDeckDetail();
+  if(currentDeck)$('#schemaText').textContent=deckSchema(currentDeck).labels.join(' ・ ');
+}
+
+function renderDeckDetail(){
+  const d=decks.find(x=>x.id===currentDeck);
+  if(!d||d.folderId!==currentFolder){$('#deckDetailPanel').classList.add('hidden');return}
+  const schema=deckSchema(d.id);
+  $('#deckDetailPanel').classList.remove('hidden');
+  $('#deckFolderBadge').textContent='📁 '+folderName(d.folderId);
+  $('#currentDeckTitle').textContent=d.name;
+  let arr=itemsInDeck(d.id);
+  $('#currentDeckMeta').textContent=`${folderName(d.folderId)} / 全て ${arr.length}件`;
+  $('#countAll').textContent=arr.length;
+  $('#countStar').textContent=arr.filter(x=>x.star).length;
+  $('#countImage').textContent=arr.filter(x=>x.values.some((v,i)=>schema.types[i]==='image'&&v)).length;
+  $('#countLearned').textContent=arr.filter(x=>x.learned).length;
+  renderLibrary();
+}
+
+function renderLibrary(){
+  if(!currentDeck)return;
+  $('#showAllBtn')?.classList.toggle('active',!$('#starOnly').checked);
+  $('#showStarBtn')?.classList.toggle('active',$('#starOnly').checked);
+  let arr=filteredItems(),el=$('#cardList'),schema=deckSchema(currentDeck);
+  $('#bulkBar').classList.toggle('hidden',!bulkMode);
+  $('#selectedCount').textContent=selectedIds.size;
+  if(!arr.length){el.innerHTML='<div class="empty">この条件に合う項目はありません。</div>';return}
+  el.innerHTML=arr.map(x=>`<div class="item ${x.star?'starred':''}">
+    ${bulkMode?`<div class="selectbox"><input type="checkbox" data-select="${x.id}" ${selectedIds.has(x.id)?'checked':''}></div>`:'<div></div>'}
+    <div class="item-main"><div class="trio">${x.values.map((v,i)=>`<div><span class="label">${esc(schema.labels[i])}</span><div class="cell">${mediaHTML(v,schema.types[i])}</div></div>`).join('')}</div></div>
+    <div class="tools">
+      <button class="iconbtn star ${x.star?'on':''}" data-star="${x.id}" title="星">${x.star?'★':'☆'}</button>
+      <button class="iconbtn" data-edit="${x.id}" title="編集">✎</button>
+      <button class="iconbtn delete" data-delete="${x.id}" title="削除">🗑</button>
+    </div>
+  </div>`).join('');
+}
+
+function setCurrentFolder(id){
+  currentFolder=id;
+  currentDeck=decksInFolder(id)[0]?.id||null;
+  selectedIds.clear();bulkMode=false;
+  renderAll();prepareStudy();newQuiz();
+}
+function setCurrentDeck(id){
+  let d=decks.find(v=>v.id===id);if(!d)return;
+  currentFolder=d.folderId;currentDeck=id;
+  selectedIds.clear();bulkMode=false;
+  renderAll();prepareStudy();newQuiz();
+}
+
+function openEditor(id=null){
+  if(!currentDeck){alert('先にセットを作成してください。');return}
+  editId=id;
+  let x=items.find(v=>v.id===id)||{values:['','','']};
+  const schema=deckSchema(currentDeck);
+  $('#modalTitle').textContent=id?'項目を編集':'項目を追加';
+  $('#editDeckLabel').textContent=`${folderName(currentFolder)} / ${deckName(currentDeck)}`;
+  $('#editFields').innerHTML=schema.labels.map((lab,i)=>schema.types[i]==='image'
+    ?`<div class="field"><label>${esc(lab)}（画像）</label><input id="ev${i}" placeholder="画像URL またはデータURL" value="${esc(x.values[i]||'')}"><input type="file" id="ef${i}" accept="image/*" style="margin-top:7px"></div>`
+    :`<div class="field"><label>${esc(lab)}</label><input id="ev${i}" value="${esc(x.values[i]||'')}"></div>`).join('');
+  $('#editModal').classList.remove('hidden');
+}
+
+async function saveEditor(){
+  const schema=deckSchema(currentDeck),vals=[];
+  for(let i=0;i<3;i++){
+    let v=$('#ev'+i).value.trim();
+    if(schema.types[i]==='image'){
+      let f=$('#ef'+i)?.files?.[0];
+      if(f)v=await fileToDataURL(f);
+    }
+    vals.push(v);
+  }
+  if(vals.every(v=>!v)){alert('少なくとも1項目を入力してください');return}
+  let old=items.find(v=>v.id===editId);
+  let obj={id:editId||uid(),deckId:currentDeck,values:vals,star:old?.star||false,learned:old?.learned||false,createdAt:old?.createdAt||Date.now(),updatedAt:Date.now()};
+  await put('items',obj);
+  if(old)Object.assign(old,obj);else items.unshift(obj);
+  closeModals();renderAll();prepareStudy();newQuiz();
+}
+
+async function createDeck(){
+  let name=$('#newDeckName').value.trim();if(!name)return;
+  let ds=decksInFolder(currentFolder);
+  if(ds.some(d=>d.name===name)){alert('同じフォルダ内に同名のセットがあります。');return}
+  let d={
+    id:uid(),folderId:currentFolder,name,
+    labels:(config.labels||['項目1','項目2','項目3']).slice(0,3),
+    types:(config.types||['text','text','text']).slice(0,3),
+    createdAt:Date.now()
+  };
+  decks.push(d);await saveDecks();currentDeck=d.id;
+  closeModals();renderAll();prepareStudy();newQuiz();
+}
+
+function openImport(id){
+  let d=decks.find(x=>x.id===id);if(!d)return;
+  importDeckId=id;
+  $('#importTitle').textContent=`「${d.name}」にインポート`;
+  $('#importText').value='';$('#importNotice').innerHTML='';
+  importedImages.clear();$('#imageFiles').value='';$('#imageFileStatus').textContent='画像 0枚';
+  deckSchema(id).types.forEach((v,i)=>$('#importType'+i).value=v);
+  $('#importModal').classList.remove('hidden');
+}
+
+async function runImport(){
+  let d=decks.find(x=>x.id===importDeckId);if(!d)return;
+  let rows=parseRows($('#importText').value);
+  if(!rows.length){showImport('読み込めるデータがありません。',false);return}
+  let types=[0,1,2].map(i=>$('#importType'+i).value),ok=0,miss=[];
+  for(let r of rows){
+    let vals=r.slice(0,3);
+    for(let i=0;i<3;i++){
+      if(types[i]==='image'&&vals[i]&&!/^data:image\//.test(vals[i])&&!/^https?:\/\//.test(vals[i])){
+        if(importedImages.has(vals[i]))vals[i]=importedImages.get(vals[i]);else miss.push(vals[i]);
+      }
+    }
+    let obj={id:uid(),deckId:d.id,values:vals,star:false,learned:false,createdAt:Date.now(),updatedAt:Date.now()};
+    await put('items',obj);items.unshift(obj);ok++;
+  }
+  d.types=types;await saveDecks();
+  syncSettingsUI(d.id);
+  currentFolder=d.folderId;currentDeck=d.id;
+  renderAll();prepareStudy();newQuiz();
+  showImport(`${ok}件を「${d.name}」に追加しました。${miss.length?` 見つからなかった画像: ${[...new Set(miss)].slice(0,5).join(', ')}`:''}`,true);
+}
+
+function syncStudyQuizSelectors(){
+  const d=decks.find(x=>x.id===currentDeck);
+  if($('#studyDeckName'))$('#studyDeckName').textContent=d?`表示中のセット「${d.name}」で学習します。`:'先にセットを選択してください。';
+  if($('#quizDeckName'))$('#quizDeckName').textContent=d?`表示中のセット「${d.name}」から出題します。`:'先にセットを選択してください。';
+}
+
+let studySession={active:false,visibleIdx:0,queue:[],pos:0,known:[],unknown:[],deckId:null};
+
+function studyPool(){
+  if(!currentDeck)return [];
+  return itemsInDeck(currentDeck).filter(x=>!$('#studyStarOnly').checked||x.star);
+}
+
+function prepareStudy(){
+  studySession.active=false;
+  studySession.queue=[];studySession.pos=0;studySession.known=[];studySession.unknown=[];studySession.deckId=currentDeck;
+  syncStudyQuizSelectors();
+  const d=decks.find(x=>x.id===currentDeck),schema=deckSchema(currentDeck);
+  $('#studySession').classList.add('hidden');
+  $('#studySummary').classList.add('hidden');
+  $('#studySetup').classList.remove('hidden');
+  $('#finishStudyBtn').classList.add('hidden');
+  if(!d){
+    $('#studyVisibleChoices').innerHTML='<div class="empty">先にセットを選択してください。</div>';
+    $('#startStudyBtn').disabled=true;return;
+  }
+  $('#startStudyBtn').disabled=false;
+  $('#studyVisibleChoices').innerHTML=schema.labels.map((lab,i)=>`<button class="study-visible-choice ${i===studySession.visibleIdx?'active':''}" data-visible-idx="${i}">${esc(lab)}</button>`).join('');
+}
+
+function startStudySession(){
+  const pool=studyPool();
+  if(!currentDeck||!pool.length){alert('このセットには学習できる項目がありません。');return}
+  studySession.active=true;
+  studySession.deckId=currentDeck;
+  studySession.queue=[...pool];
+  studySession.pos=0;studySession.known=[];studySession.unknown=[];
+  $('#studySetup').classList.add('hidden');
+  $('#studySummary').classList.add('hidden');
+  $('#studySession').classList.remove('hidden');
+  $('#finishStudyBtn').classList.remove('hidden');
+  renderStudy();
+}
+
+function renderStudy(){
+  if(!studySession.active){prepareStudy();return}
+  const arr=studySession.queue,a=$('#studyArea');
+  if(studySession.pos>=arr.length){finishStudySession(false);return}
+  const x=arr[studySession.pos],schema=deckSchema(x.deckId);
+  a.innerHTML=`<div class="row space">
+    <div><span class="badge">${studySession.pos+1} / ${arr.length}</span> <span class="badge">${esc(deckName(x.deckId))}</span></div>
+    <button class="iconbtn star ${x.star?'on':''}" data-study-star="${x.id}">${x.star?'★':'☆'}</button>
+  </div>
+  <div class="flashcard study-swipe-card" id="studySwipeCard" style="margin-top:10px">
+    ${x.values.map((v,i)=>`<div class="face ${i===studySession.visibleIdx?'':'covered'}" ${i===studySession.visibleIdx?'':'data-reveal'}>
+      <span class="label">${esc(schema.labels[i])}</span>
+      <div class="content ${schema.types[i]==='text'?'big':''}">${mediaHTML(v,schema.types[i])}</div>
+    </div>`).join('')}
+  </div>`;
+}
+
+function classifyStudy(known){
+  if(!studySession.active||studySession.pos>=studySession.queue.length)return;
+  const x=studySession.queue[studySession.pos],card=$('#studySwipeCard');
+  (known?studySession.known:studySession.unknown).push(x.id);
+  if(card){
+    card.classList.add(known?'study-swipe-right':'study-swipe-left');
+    setTimeout(()=>{studySession.pos++;renderStudy()},180);
+  }else{
+    studySession.pos++;renderStudy();
+  }
+}
+
+function finishStudySession(manual=true){
+  if(!studySession.active&&manual){prepareStudy();return}
+  studySession.active=false;
+  $('#studySession').classList.add('hidden');
+  $('#studySetup').classList.add('hidden');
+  $('#finishStudyBtn').classList.add('hidden');
+  const total=studySession.known.length+studySession.unknown.length;
+  const remaining=Math.max(0,studySession.queue.length-total);
+  $('#studySummary').classList.remove('hidden');
+  $('#studySummary').innerHTML=`<div class="study-summary">
+    <h3>${manual?'カードを終了しました':'このセットのカードが終了しました'}</h3>
+    <div class="sub">${esc(deckName(studySession.deckId))}</div>
+    <div class="study-summary-counts">
+      <div class="study-summary-count"><b>${studySession.known.length}</b><span>分かった</span></div>
+      <div class="study-summary-count"><b>${studySession.unknown.length}</b><span>分からない</span></div>
+    </div>
+    ${remaining?`<div class="sub">未回答 ${remaining}件</div>`:''}
+    <div class="row" style="justify-content:center;margin-top:14px"><button class="btn primary" id="restartStudyBtn">もう一度</button></div>
+  </div>`;
+  $('#restartStudyBtn').onclick=prepareStudy;
+}
+
+function quizPool(){
+  return currentDeck?itemsInDeck(currentDeck).filter(x=>!$('#quizStarOnly').checked||x.star):[];
+}
+
+function newQuiz(){
+  syncStudyQuizSelectors();
+  let pool=quizPool(),qa=$('#quizArea');
+  if(pool.length<2){
+    qa.innerHTML='<div class="empty">四択には表示中のセット内に2件以上必要です。</div>';
+    quizState=null;return;
+  }
+  const schema=deckSchema(currentDeck);
+  let answer=pool[Math.floor(Math.random()*pool.length)],pairs=[];
+  for(let p=0;p<3;p++)for(let a=0;a<3;a++)if(p!==a)pairs.push([p,a]);
+  let [promptIdx,answerIdx]=pairs[Math.floor(Math.random()*pairs.length)];
+  let valid=pool.filter(x=>x.id!==answer.id&&x.values[answerIdx]&&x.values[answerIdx]!==answer.values[answerIdx]);
+  let count=Math.min(3,valid.length);
+  let choices=[answer,...sample(valid,count)].sort(()=>Math.random()-.5);
+  quizState={answerId:answer.id,answerIdx,locked:false};
+  qa.innerHTML=`<div class="quizprompt">
+    <span class="badge">${esc(schema.labels[promptIdx])} → ${esc(schema.labels[answerIdx])}</span>
+    <div class="prompt-content">${mediaHTML(answer.values[promptIdx],schema.types[promptIdx])}</div>
+    <div class="sub">正しい「${esc(schema.labels[answerIdx])}」は？</div>
+  </div>
+  <div class="choices">${choices.map(x=>`<button class="choice" data-choice data-id="${x.id}">${mediaHTML(x.values[answerIdx],schema.types[answerIdx])}</button>`).join('')}</div>
+  <div id="quizFeedback" style="margin-top:12px"></div>`;
+}
+
+function closeModals(){$$('.modal').forEach(m=>m.classList.add('hidden'))}
+async function exportData(){let data={app:'Vocabstar Trio',version:5,config,folders,decks,items};let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='vocabstar-trio-backup.json';a.click();URL.revokeObjectURL(a.href)}
+
+$$('.tab').forEach(t=>t.onclick=()=>{$$('.tab').forEach(x=>x.classList.remove('active'));t.classList.add('active');$$('.page').forEach(p=>p.classList.add('hidden'));$('#page-'+t.dataset.page).classList.remove('hidden');if(t.dataset.page==='study')prepareStudy();if(t.dataset.page==='quiz')newQuiz()});
+$('#exportBtn').onclick=exportData;$('#saveItem').onclick=saveEditor;
 $('#addFolderBtn').onclick=()=>{$('#folderModal').classList.remove('hidden');setTimeout(()=>$('#newFolderName').focus(),50)};$('#createFolder').onclick=createFolder;$('#newFolderName').onkeydown=e=>{if(e.key==='Enter')createFolder()};
 $('#addDeckBtn').onclick=openDeckModal;$('#createDeck').onclick=createDeck;$('#newDeckName').onkeydown=e=>{if(e.key==='Enter')createDeck()};
 $('#folderSelect').onchange=e=>setCurrentFolder(e.target.value);$('#renameCurrentFolder').onclick=()=>currentFolder&&renameFolder(currentFolder);$('#deleteCurrentFolder').onclick=()=>currentFolder&&deleteFolder(currentFolder);
@@ -404,14 +819,29 @@ $('#showAllBtn').onclick=()=>{$('#starOnly').checked=false;renderLibrary()};
 $('#showStarBtn').onclick=()=>{$('#starOnly').checked=true;renderLibrary()};
 $('#bulkModeBtnVisible').onclick=()=>$('#bulkModeBtn').click();
 $('#classicImportBtn').onclick=()=>currentDeck&&openImport(currentDeck);
-$('#renameCurrentDeckBtn').onclick=()=>currentDeck&&renameDeck(currentDeck);
+$('#renameCurrentDeckBtn').onclick=()=>currentDeck&&renameDeck(currentDeck);$('#deckSettingsBtn').onclick=()=>{if(!currentDeck)return;syncSettingsUI(currentDeck);$('#settingsModal').classList.remove('hidden')};
 $('#classicStudyBtn').onclick=()=>{let t=document.querySelector('.tab[data-page="study"]');if(t)t.click()};
 $('#classicQuizBtn').onclick=()=>{let t=document.querySelector('.tab[data-page="quiz"]');if(t)t.click()};$('#bulkModeBtn').onclick=()=>{bulkMode=!bulkMode;selectedIds.clear();renderLibrary()};$('#cancelBulk').onclick=()=>{bulkMode=false;selectedIds.clear();renderLibrary()};$('#deleteSelected').onclick=deleteSelected;
 $('#cardList').onclick=e=>{let s=e.target.closest('[data-star]'),ed=e.target.closest('[data-edit]'),d=e.target.closest('[data-delete]'),sel=e.target.closest('[data-select]');if(sel){sel.checked?selectedIds.add(sel.dataset.select):selectedIds.delete(sel.dataset.select);$('#selectedCount').textContent=selectedIds.size;return}if(s)toggleStar(s.dataset.star);if(ed)openEditor(ed.dataset.edit);if(d)deleteItem(d.dataset.delete)};
-$('#studyArea').onclick=e=>{let f=e.target.closest('[data-reveal]');if(f)f.classList.remove('covered');let s=e.target.closest('[data-study-star]');if(s)toggleStar(s.dataset.studyStar).then(renderStudy)};$('#quizArea').onclick=e=>{let b=e.target.closest('[data-choice]');if(b)answerQuiz(b)};
-$('#prevStudy').onclick=()=>moveStudy(-1);$('#nextStudy').onclick=()=>moveStudy(1);$('#nextQuiz').onclick=newQuiz;$('#studyStarOnly').onchange=()=>{studyIndex=0;renderStudy()};$('#quizStarOnly').onchange=newQuiz;
-$('#studyFolder').onchange=e=>{$('#studyDeck').innerHTML=deckOptions(e.target.value,decksInFolder(e.target.value)[0]?.id||'');studyIndex=0;renderStudy()};$('#studyDeck').onchange=()=>{studyIndex=0;renderStudy()};$('#quizFolder').onchange=e=>{$('#quizDeck').innerHTML=deckOptions(e.target.value,decksInFolder(e.target.value)[0]?.id||'');newQuiz()};$('#quizDeck').onchange=newQuiz;
-$('#saveSettings').onclick=async()=>{config.title=$('#settingTitle').value.trim()||'Vocabstar Trio';config.labels=[0,1,2].map(i=>$('#label'+i).value.trim()||`項目${i+1}`);config.types=[0,1,2].map(i=>$('#type'+i).value);await saveConfig();syncSettingsUI();closeModals();renderAll();renderStudy();newQuiz()};
+$('#studyVisibleChoices').onclick=e=>{let b=e.target.closest('[data-visible-idx]');if(!b)return;studySession.visibleIdx=Number(b.dataset.visibleIdx);$$('[data-visible-idx]').forEach(x=>x.classList.toggle('active',x===b))};
+$('#startStudyBtn').onclick=startStudySession;
+$('#finishStudyBtn').onclick=()=>finishStudySession(true);
+$('#studyUnknownBtn').onclick=()=>classifyStudy(false);
+$('#studyKnownBtn').onclick=()=>classifyStudy(true);
+$('#studyArea').onclick=e=>{let f=e.target.closest('[data-reveal]');if(f)f.classList.remove('covered');let s=e.target.closest('[data-study-star]');if(s)toggleStar(s.dataset.studyStar).then(renderStudy)};
+let swipeStart=null;
+$('#studyArea').addEventListener('touchstart',e=>{let t=e.touches[0];swipeStart={x:t.clientX,y:t.clientY}},{passive:true});
+$('#studyArea').addEventListener('touchend',e=>{if(!swipeStart||!studySession.active)return;let t=e.changedTouches[0],dx=t.clientX-swipeStart.x,dy=t.clientY-swipeStart.y;swipeStart=null;if(Math.abs(dx)>70&&Math.abs(dx)>Math.abs(dy)*1.25)classifyStudy(dx>0)},{passive:true});
+$('#quizArea').onclick=e=>{let b=e.target.closest('[data-choice]');if(b)answerQuiz(b)};
+$('#nextQuiz').onclick=newQuiz;
+$('#studyStarOnly').onchange=()=>{if(!studySession.active)prepareStudy()};
+$('#quizStarOnly').onchange=newQuiz;
+$('#saveSettings').onclick=async()=>{
+  let d=decks.find(x=>x.id===currentDeck);if(!d)return;
+  d.labels=[0,1,2].map(i=>$('#label'+i).value.trim()||`項目${i+1}`);
+  d.types=[0,1,2].map(i=>$('#type'+i).value);
+  await saveDecks();syncSettingsUI(currentDeck);closeModals();renderAll();prepareStudy();newQuiz()
+};
 $$('[data-close]').forEach(b=>b.onclick=closeModals);$$('.modal').forEach(m=>m.onclick=e=>{if(e.target===m)closeModals()});
 init().catch(err=>{console.error(err);alert('データベースの初期化に失敗しました。Safariのプライベートブラウズ等では保存できない場合があります。')});
 </script>
