@@ -237,6 +237,46 @@ footer{text-align:center;color:#9aa2b3;font-size:12px;padding:20px}
   .study-option-row{gap:12px}
 }
 
+
+/* ===== v10: resume study + yellow stars ===== */
+.iconbtn.star{
+  background:#fff!important;
+  color:#cbd5e1!important;
+  border:1.5px solid #e5e7eb!important;
+  box-shadow:none!important;
+  font-weight:900!important;
+}
+.iconbtn.star.on{
+  background:#fffbeb!important;
+  color:#f59e0b!important;
+  border-color:#fbbf24!important;
+}
+.item.starred{
+  border-color:#fde68a!important;
+  background:#fffdf5!important;
+}
+.study-resume{
+  margin-top:14px;
+  border:1px solid #bfdbfe;
+  background:#eff6ff;
+  border-radius:15px;
+  padding:14px;
+}
+.study-resume-title{
+  font-weight:900;
+  color:#1d4ed8;
+  margin-bottom:4px;
+}
+.study-resume-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-top:11px;
+}
+@media(max-width:520px){
+  .study-resume-actions{grid-template-columns:1fr 1fr}
+}
+
 </style>
 </head>
 <body>
@@ -341,6 +381,14 @@ footer{text-align:center;color:#9aa2b3;font-size:12px;padding:20px}
         <div class="study-option-row">
           <label class="study-star-only"><input type="checkbox" id="studyStarOnly"> ★付きだけ</label>
           <label class="study-star-only"><input type="checkbox" id="studyShuffle" checked> 🔀 シャッフル</label>
+        </div>
+        <div id="studyResumeBox" class="study-resume hidden">
+          <div class="study-resume-title">途中の学習があります</div>
+          <div class="sub" id="studyResumeText"></div>
+          <div class="study-resume-actions">
+            <button class="btn primary" id="resumeStudyBtn">続きから</button>
+            <button class="btn" id="restartStudyFromBeginningBtn">最初から</button>
+          </div>
         </div>
         <button class="btn primary study-start-btn" id="startStudyBtn">学習を開始</button>
       </div>
@@ -512,6 +560,7 @@ function showImport(t,good=true){$('#importNotice').innerHTML=`<div class="notic
 
 
 function goHome(){
+  if(typeof studySession!=='undefined'&&studySession.active)persistStudyProgress();
   $$('.tab').forEach(x=>x.classList.toggle('active',x.dataset.page==='library'));
   $$('.page').forEach(p=>p.classList.add('hidden'));
   $('#page-library').classList.remove('hidden');
@@ -732,6 +781,53 @@ function shuffleCopy(arr){
   return a;
 }
 
+const STUDY_PROGRESS_KEY='vocabstarTrioStudyProgressV10';
+
+function loadStudyProgressMap(){
+  try{return JSON.parse(localStorage.getItem(STUDY_PROGRESS_KEY)||'{}')||{}}
+  catch(e){return {}}
+}
+function saveStudyProgressMap(map){
+  try{localStorage.setItem(STUDY_PROGRESS_KEY,JSON.stringify(map))}catch(e){}
+}
+function getStudyProgress(deckId){
+  if(!deckId)return null;
+  const p=loadStudyProgressMap()[deckId];
+  if(!p||!Array.isArray(p.queueIds))return null;
+  const existing=new Set(itemsInDeck(deckId).map(x=>x.id));
+  const queueIds=p.queueIds.filter(id=>existing.has(id));
+  if(!queueIds.length)return null;
+  const pos=Math.max(0,Math.min(Number(p.pos)||0,queueIds.length));
+  if(pos>=queueIds.length)return null;
+  return {...p,queueIds,pos};
+}
+function clearStudyProgress(deckId){
+  if(!deckId)return;
+  const map=loadStudyProgressMap();
+  delete map[deckId];
+  saveStudyProgressMap(map);
+}
+function persistStudyProgress(){
+  if(!studySession.deckId||!studySession.queue.length)return;
+  if(studySession.pos>=studySession.queue.length){
+    clearStudyProgress(studySession.deckId);
+    return;
+  }
+  const map=loadStudyProgressMap();
+  map[studySession.deckId]={
+    deckId:studySession.deckId,
+    queueIds:studySession.queue.map(x=>x.id),
+    pos:studySession.pos,
+    known:[...studySession.known],
+    unknown:[...studySession.unknown],
+    visibleIdx:studySession.visibleIdx,
+    shuffle:!!$('#studyShuffle')?.checked,
+    starOnly:!!$('#studyStarOnly')?.checked,
+    updatedAt:Date.now()
+  };
+  saveStudyProgressMap(map);
+}
+
 let studySession={active:false,visibleIdx:0,queue:[],pos:0,known:[],unknown:[],deckId:null};
 
 function studyPool(){
@@ -740,6 +836,7 @@ function studyPool(){
 }
 
 function prepareStudy(){
+  if(studySession.active)persistStudyProgress();
   studySession.active=false;
   studySession.queue=[];studySession.pos=0;studySession.known=[];studySession.unknown=[];studySession.deckId=currentDeck;
   syncStudyQuizSelectors();
@@ -748,17 +845,28 @@ function prepareStudy(){
   $('#studySummary').classList.add('hidden');
   $('#studySetup').classList.remove('hidden');
   $('#finishStudyBtn').classList.add('hidden');
+  $('#studyResumeBox').classList.add('hidden');
+  $('#startStudyBtn').classList.remove('hidden');
+
   if(!d){
     $('#studyVisibleChoices').innerHTML='<div class="empty">先にセットを選択してください。</div>';
     $('#startStudyBtn').disabled=true;return;
   }
+
   $('#startStudyBtn').disabled=false;
   $('#studyVisibleChoices').innerHTML=schema.labels.map((lab,i)=>`<button class="study-visible-choice ${i===studySession.visibleIdx?'active':''}" data-visible-idx="${i}">${esc(lab)}</button>`).join('');
-}
 
+  const saved=getStudyProgress(currentDeck);
+  if(saved){
+    $('#studyResumeText').textContent=`${saved.pos+1} / ${saved.queueIds.length}件目から再開できます`;
+    $('#studyResumeBox').classList.remove('hidden');
+    $('#startStudyBtn').classList.add('hidden');
+  }
+}
 function startStudySession(){
   const pool=studyPool();
   if(!currentDeck||!pool.length){alert('このセットには学習できる項目がありません。');return}
+  clearStudyProgress(currentDeck);
   studySession.active=true;
   studySession.deckId=currentDeck;
   studySession.queue=$('#studyShuffle').checked?shuffleCopy(pool):[...pool];
@@ -767,9 +875,33 @@ function startStudySession(){
   $('#studySummary').classList.add('hidden');
   $('#studySession').classList.remove('hidden');
   $('#finishStudyBtn').classList.remove('hidden');
+  persistStudyProgress();
   renderStudy();
 }
 
+function resumeStudySession(){
+  const saved=getStudyProgress(currentDeck);
+  if(!saved){prepareStudy();return}
+  const byId=new Map(itemsInDeck(currentDeck).map(x=>[x.id,x]));
+  const queue=saved.queueIds.map(id=>byId.get(id)).filter(Boolean);
+  if(!queue.length){clearStudyProgress(currentDeck);prepareStudy();return}
+
+  studySession.active=true;
+  studySession.deckId=currentDeck;
+  studySession.queue=queue;
+  studySession.pos=Math.min(saved.pos,queue.length-1);
+  studySession.known=Array.isArray(saved.known)?saved.known:[];
+  studySession.unknown=Array.isArray(saved.unknown)?saved.unknown:[];
+  studySession.visibleIdx=Number.isInteger(saved.visibleIdx)?saved.visibleIdx:0;
+
+  $('#studyShuffle').checked=!!saved.shuffle;
+  $('#studyStarOnly').checked=!!saved.starOnly;
+  $('#studySetup').classList.add('hidden');
+  $('#studySummary').classList.add('hidden');
+  $('#studySession').classList.remove('hidden');
+  $('#finishStudyBtn').classList.remove('hidden');
+  renderStudy();
+}
 function renderStudy(){
   if(!studySession.active){prepareStudy();return}
   const arr=studySession.queue,a=$('#studyArea');
@@ -793,14 +925,16 @@ function classifyStudy(known){
   (known?studySession.known:studySession.unknown).push(x.id);
   if(card){
     card.classList.add(known?'study-swipe-right':'study-swipe-left');
-    setTimeout(()=>{studySession.pos++;renderStudy()},180);
+    setTimeout(()=>{studySession.pos++;persistStudyProgress();renderStudy()},180);
   }else{
-    studySession.pos++;renderStudy();
+    studySession.pos++;persistStudyProgress();renderStudy();
   }
 }
 
 function finishStudySession(manual=true){
   if(!studySession.active&&manual){prepareStudy();return}
+  if(!manual)clearStudyProgress(studySession.deckId);
+  else persistStudyProgress();
   studySession.active=false;
   $('#studySession').classList.add('hidden');
   $('#studySetup').classList.add('hidden');
@@ -894,7 +1028,7 @@ function newQuiz(){
 }
 
 function closeModals(){$$('.modal').forEach(m=>m.classList.add('hidden'))}
-async function exportData(){let data={app:'Vocabstar Trio',version:7,config,folders,decks,items};let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='vocabstar-trio-backup.json';a.click();URL.revokeObjectURL(a.href)}
+async function exportData(){let data={app:'Vocabstar Trio',version:8,config,folders,decks,items};let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='vocabstar-trio-backup.json';a.click();URL.revokeObjectURL(a.href)}
 
 $$('.tab').forEach(t=>t.onclick=()=>{$$('.tab').forEach(x=>x.classList.remove('active'));t.classList.add('active');$$('.page').forEach(p=>p.classList.add('hidden'));$('#page-'+t.dataset.page).classList.remove('hidden');if(t.dataset.page==='study')prepareStudy();if(t.dataset.page==='quiz')newQuiz()});
 $('#exportBtn').onclick=exportData;$('#saveItem').onclick=saveEditor;
@@ -916,9 +1050,11 @@ $('#classicQuizBtn').onclick=()=>{let t=document.querySelector('.tab[data-page="
 $('#cardList').onclick=e=>{let s=e.target.closest('[data-star]'),ed=e.target.closest('[data-edit]'),d=e.target.closest('[data-delete]'),sel=e.target.closest('[data-select]');if(sel){sel.checked?selectedIds.add(sel.dataset.select):selectedIds.delete(sel.dataset.select);$('#selectedCount').textContent=selectedIds.size;return}if(s)toggleStar(s.dataset.star);if(ed)openEditor(ed.dataset.edit);if(d)deleteItem(d.dataset.delete)};
 $('#studyVisibleChoices').onclick=e=>{let b=e.target.closest('[data-visible-idx]');if(!b)return;studySession.visibleIdx=Number(b.dataset.visibleIdx);$$('[data-visible-idx]').forEach(x=>x.classList.toggle('active',x===b))};
 $('#startStudyBtn').onclick=startStudySession;
+$('#resumeStudyBtn').onclick=resumeStudySession;
+$('#restartStudyFromBeginningBtn').onclick=()=>{clearStudyProgress(currentDeck);startStudySession()};
 $('#finishStudyBtn').onclick=()=>{
+  persistStudyProgress();
   studySession.active=false;
-  studySession.queue=[];
   $('#studySession').classList.add('hidden');
   $('#studySummary').classList.add('hidden');
   $('#finishStudyBtn').classList.add('hidden');
@@ -926,7 +1062,19 @@ $('#finishStudyBtn').onclick=()=>{
 };
 $('#studyUnknownBtn').onclick=()=>classifyStudy(false);
 $('#studyKnownBtn').onclick=()=>classifyStudy(true);
-$('#studyArea').onclick=e=>{let f=e.target.closest('[data-reveal]');if(f)f.classList.remove('covered');let s=e.target.closest('[data-study-star]');if(s)toggleStar(s.dataset.studyStar).then(renderStudy)};
+$('#studyArea').onclick=async e=>{
+  let f=e.target.closest('[data-reveal]');
+  if(f)f.classList.remove('covered');
+  let s=e.target.closest('[data-study-star]');
+  if(s){
+    await toggleStar(s.dataset.studyStar);
+    const x=items.find(v=>v.id===s.dataset.studyStar);
+    if(x){
+      s.classList.toggle('on',!!x.star);
+      s.textContent=x.star?'★':'☆';
+    }
+  }
+};
 let swipeStart=null;
 $('#studyArea').addEventListener('touchstart',e=>{let t=e.touches[0];swipeStart={x:t.clientX,y:t.clientY}},{passive:true});
 $('#studyArea').addEventListener('touchend',e=>{if(!swipeStart||!studySession.active)return;let t=e.changedTouches[0],dx=t.clientX-swipeStart.x,dy=t.clientY-swipeStart.y;swipeStart=null;if(Math.abs(dx)>70&&Math.abs(dx)>Math.abs(dy)*1.25)classifyStudy(dx>0)},{passive:true});
