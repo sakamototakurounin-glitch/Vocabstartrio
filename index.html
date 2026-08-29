@@ -277,6 +277,23 @@ footer{text-align:center;color:#9aa2b3;font-size:12px;padding:20px}
   .study-resume-actions{grid-template-columns:1fr 1fr}
 }
 
+
+/* ===== v11: retry unknown items ===== */
+.retry-unknown-btn{
+  border-color:#f59e0b!important;
+  color:#b45309!important;
+  background:#fffbeb!important;
+  font-weight:800;
+}
+.retry-unknown-btn:active{transform:scale(.98)}
+@media(max-width:520px){
+  .study-summary .row{
+    display:grid!important;
+    grid-template-columns:1fr;
+  }
+  .study-summary .row .btn{width:100%}
+}
+
 </style>
 </head>
 <body>
@@ -931,6 +948,35 @@ function classifyStudy(known){
   }
 }
 
+
+function retryUnknownStudy(){
+  if(!studySession.deckId || !studySession.unknown.length)return;
+
+  const byId=new Map(itemsInDeck(studySession.deckId).map(x=>[x.id,x]));
+  let retryItems=studySession.unknown.map(id=>byId.get(id)).filter(Boolean);
+
+  if(!retryItems.length){
+    prepareStudy();
+    return;
+  }
+
+  if($('#studyShuffle')?.checked)retryItems=shuffleCopy(retryItems);
+
+  studySession.active=true;
+  studySession.queue=retryItems;
+  studySession.pos=0;
+  studySession.known=[];
+  studySession.unknown=[];
+
+  $('#studySummary').classList.add('hidden');
+  $('#studySetup').classList.add('hidden');
+  $('#studySession').classList.remove('hidden');
+  $('#finishStudyBtn').classList.remove('hidden');
+
+  persistStudyProgress();
+  renderStudy();
+}
+
 function finishStudySession(manual=true){
   if(!studySession.active&&manual){prepareStudy();return}
   if(!manual)clearStudyProgress(studySession.deckId);
@@ -952,10 +998,14 @@ function finishStudySession(manual=true){
     ${remaining?`<div class="sub">未回答 ${remaining}件</div>`:''}
     <div class="row" style="justify-content:center;margin-top:14px">
       <button class="btn" id="studyHomeBtn">ホームに戻る</button>
-      <button class="btn primary" id="restartStudyBtn">もう一度</button>
+      ${studySession.unknown.length ? '<button class="btn retry-unknown-btn" id="retryUnknownBtn">わからなかった項目だけもう一回</button>' : ''}
+      <button class="btn primary" id="restartStudyBtn">最初からもう一度</button>
     </div>
   </div>`;
-  $('#studyHomeBtn').onclick=goHome;$('#restartStudyBtn').onclick=prepareStudy;
+  $('#studyHomeBtn').onclick=goHome;
+  const retryUnknownBtn=$('#retryUnknownBtn');
+  if(retryUnknownBtn)retryUnknownBtn.onclick=retryUnknownStudy;
+  $('#restartStudyBtn').onclick=prepareStudy;
 }
 
 function quizPool(){
@@ -1028,7 +1078,7 @@ function newQuiz(){
 }
 
 function closeModals(){$$('.modal').forEach(m=>m.classList.add('hidden'))}
-async function exportData(){let data={app:'Vocabstar Trio',version:8,config,folders,decks,items};let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='vocabstar-trio-backup.json';a.click();URL.revokeObjectURL(a.href)}
+async function exportData(){let data={app:'Vocabstar Trio',version:9,config,folders,decks,items};let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='vocabstar-trio-backup.json';a.click();URL.revokeObjectURL(a.href)}
 
 $$('.tab').forEach(t=>t.onclick=()=>{$$('.tab').forEach(x=>x.classList.remove('active'));t.classList.add('active');$$('.page').forEach(p=>p.classList.add('hidden'));$('#page-'+t.dataset.page).classList.remove('hidden');if(t.dataset.page==='study')prepareStudy();if(t.dataset.page==='quiz')newQuiz()});
 $('#exportBtn').onclick=exportData;$('#saveItem').onclick=saveEditor;
